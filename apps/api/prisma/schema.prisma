@@ -1,0 +1,377 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPER_OWNER
+  ADMIN
+  MODERATOR
+  SUPPORT
+  USER
+}
+
+enum SubscriptionTier {
+  FREE
+  PREMIUM_MONTHLY
+  PREMIUM_YEARLY
+  FAMILY
+}
+
+enum GameAccess {
+  FREE
+  PREMIUM
+  CREDITS
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  BANNED
+  DELETED
+}
+
+enum TransactionType {
+  CREDIT_PURCHASE
+  CREDIT_SPEND
+  SUBSCRIPTION
+  REFUND
+  GRANT
+  REWARD
+}
+
+model User {
+  id                String           @id @default(cuid())
+  email             String           @unique
+  username          String           @unique
+  displayName       String
+  passwordHash      String?
+  avatarUrl         String?
+  role              Role             @default(USER)
+  status            UserStatus       @default(ACTIVE)
+  emailVerified     Boolean          @default(false)
+  emailVerifyToken  String?
+  twoFactorEnabled  Boolean          @default(false)
+  twoFactorSecret   String?
+  xp                Int              @default(0)
+  level             Int              @default(1)
+  coins             Int              @default(100)
+  credits           Int              @default(0)
+  subscription      SubscriptionTier @default(FREE)
+  subscriptionEnds  DateTime?
+  googleId          String?          @unique
+  appleId           String?          @unique
+  stripeCustomerId  String?          @unique
+  lastLoginAt       DateTime?
+  lastActiveAt      DateTime?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  sessions          Session[]
+  devices           Device[]
+  loginHistory      LoginHistory[]
+  achievements      UserAchievement[]
+  inventory         InventoryItem[]
+  cloudSaves        CloudSave[]
+  purchases         Purchase[]
+  playSessions      PlaySession[]
+  reports           Report[]         @relation("Reporter")
+  auditLogs         AuditLog[]
+  friendships       Friendship[]     @relation("UserFriends")
+  friendOf          Friendship[]     @relation("FriendOf")
+  dailyRewards      DailyRewardClaim[]
+  notifications     Notification[]
+
+  @@index([role])
+  @@index([status])
+  @@index([subscription])
+}
+
+model Session {
+  id               String   @id @default(cuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refreshTokenHash String
+  ipAddress        String?
+  userAgent        String?
+  deviceId         String?
+  expiresAt        DateTime
+  revokedAt        DateTime?
+  createdAt        DateTime @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model Device {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name       String
+  fingerprint String
+  lastIp     String?
+  trusted    Boolean  @default(false)
+  lastSeenAt DateTime @default(now())
+  createdAt  DateTime @default(now())
+
+  @@unique([userId, fingerprint])
+  @@index([userId])
+}
+
+model LoginHistory {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ipAddress String?
+  userAgent String?
+  success   Boolean
+  reason    String?
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+}
+
+model Game {
+  id            String     @id @default(cuid())
+  slug          String     @unique
+  title         String
+  description   String
+  tagline       String?
+  genres        String[]
+  tags          String[]
+  access        GameAccess @default(FREE)
+  creditCost    Int        @default(0)
+  engine        String     @default("canvas")
+  thumbnail     String?
+  cover         String?
+  featured      Boolean    @default(false)
+  trending      Boolean    @default(false)
+  endlessStory  Boolean    @default(false)
+  published     Boolean    @default(true)
+  hidden        Boolean    @default(false)
+  scheduledAt   DateTime?
+  version       String     @default("1.0.0")
+  playCount     Int        @default(0)
+  avgPlayTime   Float      @default(0)
+  rating        Float      @default(0)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  cloudSaves    CloudSave[]
+  playSessions  PlaySession[]
+  aiContent     AiGeneratedContent[]
+
+  @@index([access])
+  @@index([featured, trending])
+  @@index([published, hidden])
+}
+
+model Achievement {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  title       String
+  description String
+  icon        String
+  xpReward    Int      @default(50)
+  coinReward  Int      @default(10)
+  createdAt   DateTime @default(now())
+
+  users       UserAchievement[]
+}
+
+model UserAchievement {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievementId String
+  achievement   Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+  unlockedAt    DateTime    @default(now())
+
+  @@unique([userId, achievementId])
+}
+
+model InventoryItem {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  itemType   String
+  itemKey    String
+  metadata   Json?
+  equipped   Boolean  @default(false)
+  acquiredAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model CloudSave {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gameId    String
+  game      Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  slot      Int      @default(0)
+  data      Json
+  version   Int      @default(1)
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  @@unique([userId, gameId, slot])
+}
+
+model Purchase {
+  id              String          @id @default(cuid())
+  userId          String
+  user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type            TransactionType
+  amount          Float
+  currency        String          @default("USD")
+  credits         Int             @default(0)
+  stripePaymentId String?
+  metadata        Json?
+  createdAt       DateTime        @default(now())
+
+  @@index([userId, createdAt])
+}
+
+model PlaySession {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gameId    String
+  game      Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  duration  Int      @default(0)
+  score     Int      @default(0)
+  metadata  Json?
+  startedAt DateTime @default(now())
+  endedAt   DateTime?
+
+  @@index([userId, gameId])
+  @@index([startedAt])
+}
+
+model Friendship {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation("UserFriends", fields: [userId], references: [id], onDelete: Cascade)
+  friendId  String
+  friend    User     @relation("FriendOf", fields: [friendId], references: [id], onDelete: Cascade)
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+
+  @@unique([userId, friendId])
+}
+
+model DailyRewardClaim {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  day       Int
+  streak    Int      @default(1)
+  claimedAt DateTime @default(now())
+
+  @@index([userId, claimedAt])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  body      String
+  type      String   @default("info")
+  data      Json?
+  read      Boolean  @default(false)
+  broadcast Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId, read])
+}
+
+model Report {
+  id          String   @id @default(cuid())
+  reporterId  String
+  reporter    User     @relation("Reporter", fields: [reporterId], references: [id], onDelete: Cascade)
+  targetType  String
+  targetId    String
+  reason      String
+  status      String   @default("open")
+  resolution  String?
+  createdAt   DateTime @default(now())
+  resolvedAt  DateTime?
+
+  @@index([status])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action     String
+  resource   String
+  resourceId String?
+  ipAddress  String?
+  userAgent  String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([action, createdAt])
+}
+
+model Setting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json
+  updatedAt DateTime @updatedAt
+}
+
+model Coupon {
+  id            String    @id @default(cuid())
+  code          String    @unique
+  discountPct   Float?
+  discountAmt   Float?
+  creditBonus   Int       @default(0)
+  maxUses       Int?
+  usedCount     Int       @default(0)
+  expiresAt     DateTime?
+  active        Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+}
+
+model AiGeneratedContent {
+  id        String   @id @default(cuid())
+  gameId    String?
+  game      Game?    @relation(fields: [gameId], references: [id], onDelete: SetNull)
+  type      String
+  prompt    String?
+  content   Json
+  assets    String[]
+  createdBy String?
+  createdAt DateTime @default(now())
+
+  @@index([type, createdAt])
+}
+
+model Backup {
+  id        String   @id @default(cuid())
+  filename  String
+  sizeBytes Int
+  encrypted Boolean  @default(true)
+  status    String   @default("completed")
+  createdAt DateTime @default(now())
+}
+
+model SeasonPass {
+  id          String   @id @default(cuid())
+  name        String
+  season      Int
+  startsAt    DateTime
+  endsAt      DateTime
+  rewards     Json
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}

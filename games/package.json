@@ -1,0 +1,7 @@
+{
+  "name": "@jashuva/games",
+  "version": "1.0.0",
+  "private": true,
+  "main": "registry.ts",
+  "types": "registry.ts"
+}
