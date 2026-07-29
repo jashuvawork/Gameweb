@@ -23,7 +23,8 @@
   ],
   "categories": ["games", "entertainment"],
   "shortcuts": [
-    { "name": "Play Free Games", "url": "/games?access=FREE" },
+    { "name": "Play Free Games", "url": "/free" },
+    { "name": "Library", "url": "/games" },
     { "name": "Store", "url": "/store" }
   ]
 }

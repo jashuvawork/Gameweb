@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="hsl(190, 55%, 12%)"/>
+      <stop offset="100%" stop-color="hsl(320, 60%, 18%)"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <circle cx="111" cy="213" r="20" fill="hsl(190, 70%, 45%)" opacity="0.35"/>
+  <circle cx="208" cy="266" r="33" fill="hsl(198, 70%, 45%)" opacity="0.36"/>
+  <circle cx="305" cy="319" r="46" fill="hsl(206, 70%, 45%)" opacity="0.37"/>
+  <circle cx="402" cy="372" r="59" fill="hsl(214, 70%, 45%)" opacity="0.38"/>
+  <circle cx="499" cy="425" r="72" fill="hsl(222, 70%, 45%)" opacity="0.39"/>
+  <circle cx="596" cy="28" r="25" fill="hsl(230, 70%, 45%)" opacity="0.35"/>
+  <circle cx="693" cy="81" r="38" fill="hsl(238, 70%, 45%)" opacity="0.36"/>
+  <circle cx="790" cy="134" r="51" fill="hsl(246, 70%, 45%)" opacity="0.37"/>
+  <circle cx="87" cy="187" r="64" fill="hsl(254, 70%, 45%)" opacity="0.38"/>
+  <circle cx="184" cy="240" r="77" fill="hsl(262, 70%, 45%)" opacity="0.39"/>
+  <circle cx="281" cy="293" r="30" fill="hsl(270, 70%, 45%)" opacity="0.35"/>
+  <circle cx="378" cy="346" r="43" fill="hsl(278, 70%, 45%)" opacity="0.36"/>
+  <text x="40" y="60" fill="#e8f7ff" font-family="Arial,sans-serif" font-size="28" font-weight="700">Pixel Runner</text>
+  <text x="40" y="95" fill="hsl(320, 80%, 70%)" font-family="Arial,sans-serif" font-size="18">Chapter 3</text>
+  <rect x="40" y="400" width="200" height="6" rx="3" fill="hsl(320, 90%, 55%)"/>
+</svg>

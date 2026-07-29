@@ -21,7 +21,7 @@ export default function GamesPage() {
       if (genre) q.set('genre', genre);
       if (access) q.set('access', access);
       if (search) q.set('search', search);
-      q.set('take', '200');
+      q.set('take', '250');
       return api<{ items: Game[] }>(`/games?${q}`);
     },
     retry: false,

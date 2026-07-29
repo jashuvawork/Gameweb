@@ -27,3 +27,5 @@ test-results
 !.vscode/extensions.json
 *.pem
 secrets/
+.env*
+!.env.example

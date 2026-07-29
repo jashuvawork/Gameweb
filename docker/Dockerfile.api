@@ -19,13 +19,17 @@ RUN pnpm --filter @jashuva/shared build && pnpm --filter @jashuva/api prisma:gen
 FROM node:22-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
-RUN corepack enable
+ENV PORT=4000
+COPY --from=build /app/package.json ./package.json
+COPY --from=build /app/pnpm-workspace.yaml ./pnpm-workspace.yaml
 COPY --from=build /app/apps/api/dist ./apps/api/dist
 COPY --from=build /app/apps/api/package.json ./apps/api/
 COPY --from=build /app/apps/api/prisma ./apps/api/prisma
 COPY --from=build /app/apps/api/node_modules ./apps/api/node_modules
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/packages ./packages
+COPY docker/api-entrypoint.sh /app/api-entrypoint.sh
+RUN chmod +x /app/api-entrypoint.sh
 WORKDIR /app/apps/api
 EXPOSE 4000
-CMD ["sh", "-c", "npx prisma migrate deploy && node dist/main.js"]
+CMD ["/app/api-entrypoint.sh"]

@@ -1,4 +1,5 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
+import { AVATAR_CLASSES, COMPANION_TYPES } from '@jashuva/shared';
 import { PrismaService } from '../prisma/prisma.service';
 
 const DAILY_REWARDS = [
@@ -8,7 +9,7 @@ const DAILY_REWARDS = [
   { day: 4, coins: 125, credits: 0, xp: 50 },
   { day: 5, coins: 150, credits: 2, xp: 60 },
   { day: 6, coins: 200, credits: 0, xp: 75 },
-  { day: 7, coins: 300, credits: 5, xp: 100 },
+  { day: 7, coins: 300, credits: 5, xp: 100, cosmeticId: 'frame-streak-7' },
 ];
 
 @Injectable()
@@ -24,11 +25,20 @@ export class UsersService {
         username: true,
         displayName: true,
         avatarUrl: true,
+        avatarClass: true,
+        companionType: true,
+        companionName: true,
+        playerTitle: true,
+        cosmetics: true,
         role: true,
         xp: true,
         level: true,
         coins: true,
         credits: true,
+        gems: true,
+        crystals: true,
+        relics: true,
+        heroCards: true,
         subscription: true,
         subscriptionEnds: true,
         twoFactorEnabled: true,
@@ -59,8 +69,7 @@ export class UsersService {
     });
     const now = new Date();
     if (last) {
-      const sameDay =
-        last.claimedAt.toDateString() === now.toDateString();
+      const sameDay = last.claimedAt.toDateString() === now.toDateString();
       if (sameDay) throw new BadRequestException('Already claimed today');
     }
 
@@ -85,6 +94,17 @@ export class UsersService {
       }),
     ]);
 
+    if (reward.cosmeticId) {
+      await this.prisma.inventoryItem.create({
+        data: {
+          userId,
+          itemType: 'frame',
+          itemKey: reward.cosmeticId,
+          metadata: { name: 'Streak Frame', source: 'daily' },
+        },
+      });
+    }
+
     return { reward, streak, day };
   }
 
@@ -100,16 +120,82 @@ export class UsersService {
     });
   }
 
-  async updateProfile(userId: string, data: { displayName?: string; avatarUrl?: string }) {
+  async updateProfile(
+    userId: string,
+    data: {
+      displayName?: string;
+      avatarUrl?: string;
+      avatarClass?: string;
+      companionType?: string;
+      companionName?: string;
+      playerTitle?: string;
+      cosmetics?: Record<string, string>;
+    },
+  ) {
+    if (data.avatarClass && !AVATAR_CLASSES.includes(data.avatarClass as never)) {
+      throw new BadRequestException('Invalid avatar class');
+    }
+    if (data.companionType && !COMPANION_TYPES.includes(data.companionType as never)) {
+      throw new BadRequestException('Invalid companion type');
+    }
     return this.prisma.user.update({
       where: { id: userId },
-      data,
+      data: {
+        displayName: data.displayName,
+        avatarUrl: data.avatarUrl,
+        avatarClass: data.avatarClass,
+        companionType: data.companionType,
+        companionName: data.companionName,
+        playerTitle: data.playerTitle,
+        cosmetics: data.cosmetics as never,
+      },
       select: {
         id: true,
         username: true,
         displayName: true,
         avatarUrl: true,
+        avatarClass: true,
+        companionType: true,
+        companionName: true,
+        playerTitle: true,
+        cosmetics: true,
       },
+    });
+  }
+
+  async equipItem(userId: string, itemId: string) {
+    const item = await this.prisma.inventoryItem.findFirst({ where: { id: itemId, userId } });
+    if (!item) throw new BadRequestException('Item not found');
+    await this.prisma.$transaction([
+      this.prisma.inventoryItem.updateMany({
+        where: { userId, itemType: item.itemType },
+        data: { equipped: false },
+      }),
+      this.prisma.inventoryItem.update({
+        where: { id: item.id },
+        data: { equipped: true },
+      }),
+    ]);
+    return { ok: true, equipped: item.itemKey };
+  }
+
+  async friends(userId: string) {
+    return this.prisma.friendship.findMany({
+      where: { OR: [{ userId }, { friendId: userId }], status: 'accepted' },
+      include: {
+        user: { select: { id: true, username: true, displayName: true, avatarClass: true } },
+        friend: { select: { id: true, username: true, displayName: true, avatarClass: true } },
+      },
+    });
+  }
+
+  async requestFriend(userId: string, friendUsername: string) {
+    const friend = await this.prisma.user.findUnique({ where: { username: friendUsername.toLowerCase() } });
+    if (!friend || friend.id === userId) throw new BadRequestException('User not found');
+    return this.prisma.friendship.upsert({
+      where: { userId_friendId: { userId, friendId: friend.id } },
+      create: { userId, friendId: friend.id, status: 'pending' },
+      update: { status: 'pending' },
     });
   }
 }

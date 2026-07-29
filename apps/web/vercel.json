@@ -1,0 +1,6 @@
+{
+  "buildCommand": "cd ../.. && pnpm --filter @jashuva/shared build && pnpm --filter @jashuva/web build",
+  "devCommand": "cd ../.. && pnpm --filter @jashuva/web dev",
+  "installCommand": "cd ../.. && pnpm install",
+  "framework": "nextjs"
+}

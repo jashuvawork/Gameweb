@@ -7,8 +7,14 @@ export function SiteFooter() {
         <div>
           <p className="font-display tracking-[0.2em] text-neon-cyan/80">JASHUVA GAMES</p>
           <p className="mt-1">Play Forever. No pay-to-win. Original games only.</p>
+          <p className="mt-2 text-xs text-white/35">
+            Play on phone, tablet, laptop & desktop — install as a PWA anytime.
+          </p>
         </div>
         <div className="flex flex-wrap gap-4">
+          <Link href="/free" className="hover:text-white">
+            Free Games
+          </Link>
           <Link href="/games" className="hover:text-white">
             Library
           </Link>

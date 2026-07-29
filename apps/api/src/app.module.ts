@@ -5,7 +5,6 @@ import { APP_GUARD } from '@nestjs/core';
 import { ScheduleModule } from '@nestjs/schedule';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { join } from 'path';
 import { PrismaModule } from './prisma/prisma.module';
 import { RedisModule } from './redis/redis.module';
 import { AuthModule } from './auth/auth.module';
@@ -18,6 +17,8 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { HealthModule } from './health/health.module';
 import { SeedModule } from './seed/seed.module';
+import { LivingWorldModule } from './living-world/living-world.module';
+import { FreeTierModule } from './free-tier/free-tier.module';
 
 @Module({
   imports: [
@@ -32,7 +33,7 @@ import { SeedModule } from './seed/seed.module';
     ScheduleModule.forRoot(),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      autoSchemaFile: true,
       sortSchema: true,
       playground: process.env.NODE_ENV !== 'production',
       context: ({ req, res }: { req: unknown; res: unknown }) => ({ req, res }),
@@ -49,6 +50,8 @@ import { SeedModule } from './seed/seed.module';
     AnalyticsModule,
     HealthModule,
     SeedModule,
+    LivingWorldModule,
+    FreeTierModule,
   ],
   providers: [
     {

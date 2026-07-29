@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="hsl(200, 55%, 12%)"/>
+      <stop offset="100%" stop-color="hsl(140, 60%, 18%)"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <circle cx="185" cy="355" r="20" fill="hsl(200, 70%, 45%)" opacity="0.35"/>
+  <circle cx="282" cy="408" r="33" fill="hsl(208, 70%, 45%)" opacity="0.36"/>
+  <circle cx="379" cy="11" r="46" fill="hsl(216, 70%, 45%)" opacity="0.37"/>
+  <circle cx="476" cy="64" r="59" fill="hsl(224, 70%, 45%)" opacity="0.38"/>
+  <circle cx="573" cy="117" r="72" fill="hsl(232, 70%, 45%)" opacity="0.39"/>
+  <circle cx="670" cy="170" r="25" fill="hsl(240, 70%, 45%)" opacity="0.35"/>
+  <circle cx="767" cy="223" r="38" fill="hsl(248, 70%, 45%)" opacity="0.36"/>
+  <circle cx="64" cy="276" r="51" fill="hsl(256, 70%, 45%)" opacity="0.37"/>
+  <circle cx="161" cy="329" r="64" fill="hsl(264, 70%, 45%)" opacity="0.38"/>
+  <circle cx="258" cy="382" r="77" fill="hsl(272, 70%, 45%)" opacity="0.39"/>
+  <circle cx="355" cy="435" r="30" fill="hsl(280, 70%, 45%)" opacity="0.35"/>
+  <circle cx="452" cy="38" r="43" fill="hsl(288, 70%, 45%)" opacity="0.36"/>
+  <text x="40" y="60" fill="#e8f7ff" font-family="Arial,sans-serif" font-size="28" font-weight="700">Snake Evolution</text>
+  <text x="40" y="95" fill="hsl(140, 80%, 70%)" font-family="Arial,sans-serif" font-size="18">Chapter 5</text>
+  <rect x="40" y="400" width="200" height="6" rx="3" fill="hsl(140, 90%, 55%)"/>
+</svg>

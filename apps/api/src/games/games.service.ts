@@ -58,12 +58,20 @@ export class GamesService {
       user.subscription === SubscriptionTier.FAMILY;
 
     if (premium) return { allowed: true, game };
-    if (game.access === GameAccess.CREDITS || game.access === GameAccess.PREMIUM) {
-      if (user.credits >= (game.creditCost || 0)) {
-        return { allowed: true, game, unlockWithCredits: true, cost: game.creditCost };
+
+    const unlocked = await this.prisma.inventoryItem.findFirst({
+      where: { userId, itemType: 'game_unlock', itemKey: game.slug },
+    });
+    if (unlocked) return { allowed: true, game };
+
+    if (game.access === GameAccess.CREDITS) {
+      const cost = game.creditCost || 25;
+      if (user.credits >= cost) {
+        return { allowed: true, game, unlockWithCredits: true, cost };
       }
-      return { allowed: false, game, reason: 'premium_or_credits_required' };
+      return { allowed: false, game, reason: 'credits_required', cost };
     }
+
     return { allowed: false, game, reason: 'premium_required' };
   }
 
