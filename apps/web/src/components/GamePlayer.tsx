@@ -4,17 +4,20 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
-import { createEngine } from '../../../../games/engine/core';
-import { GAME_REGISTRY } from '../../../../games/registry';
+import { createEngine, type EngineHandle } from '@games/engine/core';
+import { GAME_REGISTRY } from '@games/registry';
 import { FREE_GAME_CATALOG } from '@/lib/catalog';
 import { api } from '@/lib/api';
 import { RewardedAdButton } from '@/components/AdsAnalytics';
 import { DeepGameShell } from '@/components/game-ui/DeepGameShell';
+import { AttractiveGameChrome } from '@/components/game-ui/AttractiveGameChrome';
+import { TouchControls, touchSchemeFor } from '@/components/game-ui/TouchControls';
 import { getGameArt } from '@games/art/free-game-art';
 import type { RootState } from '@/store';
 
 export function GamePlayer({ slug }: { slug: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [engine, setEngine] = useState<EngineHandle | null>(null);
   const [score, setScore] = useState(0);
   const [ended, setEnded] = useState(false);
   const [playing, setPlaying] = useState(!getGameArt(slug));
@@ -23,6 +26,9 @@ export function GamePlayer({ slug }: { slug: string }) {
   const art = getGameArt(slug);
   const token = useSelector((s: RootState) => s.auth.accessToken);
   const isPremiumGame = meta?.access === 'PREMIUM' || meta?.access === 'CREDITS';
+  const accent = art?.accent ?? (isPremiumGame ? '#ffc857' : '#00f0ff');
+  const accent2 = art?.accent2 ?? (isPremiumGame ? '#ff2bd6' : '#7aa2ff');
+  const scheme = touchSchemeFor(slug);
 
   const { data: access, isLoading, isError } = useQuery({
     queryKey: ['game-access', slug],
@@ -40,13 +46,29 @@ export function GamePlayer({ slug }: { slug: string }) {
   const blocked = isPremiumGame && (!token || isError || (access && !access.allowed));
 
   useEffect(() => {
-    if (!canvasRef.current || !entry || blocked || !playing) return;
-    const engine = createEngine(canvasRef.current, entry.create, {
+    if (!canvasRef.current || !entry || blocked || !playing) {
+      setEngine(null);
+      return;
+    }
+    setEnded(false);
+    setScore(0);
+    const handle = createEngine(canvasRef.current, entry.create, {
       onScore: setScore,
       onGameOver: () => setEnded(true),
     });
-    return () => engine.stop();
+    setEngine(handle);
+    return () => {
+      handle.stop();
+      setEngine(null);
+    };
   }, [entry, slug, blocked, playing]);
+
+  const restart = () => {
+    if (!engine) return;
+    engine.press('r');
+    window.setTimeout(() => engine.release('r'), 100);
+    setEnded(false);
+  };
 
   if (!entry) {
     return (
@@ -89,17 +111,32 @@ export function GamePlayer({ slug }: { slug: string }) {
     );
   }
 
-  const canvasBlock = (
+  const playSurface = (
     <>
-      <div className="mb-3 flex flex-wrap items-end justify-between gap-3 px-1">
-        <div className="text-sm text-white/60">
-          Score <span className="text-neon-cyan">{score}</span>
-          {ended && <span className="ml-3 text-neon-magenta">Ended — press R</span>}
-        </div>
+      <div
+        className="overflow-hidden rounded-2xl ring-1 ring-white/10"
+        style={{ boxShadow: `0 0 36px ${accent}22` }}
+      >
+        <canvas
+          ref={canvasRef}
+          className="block w-full touch-none bg-void-950"
+          style={{ touchAction: 'none' }}
+          role="img"
+          aria-label={`${entry.title} game canvas`}
+        />
       </div>
-      <div className="overflow-hidden rounded-2xl ring-1 ring-white/10" style={art ? { boxShadow: `0 0 40px ${art.accent}22` } : undefined}>
-        <canvas ref={canvasRef} className="block w-full touch-none bg-void-950" role="img" aria-label={`${entry.title} game canvas`} />
-      </div>
+
+      {playing && (
+        <TouchControls
+          engine={engine}
+          scheme={scheme}
+          accent={accent}
+          accent2={accent2}
+          ended={ended}
+          onRestart={restart}
+        />
+      )}
+
       {!isPremiumGame && ended && (
         <div className="mt-3">
           <RewardedAdButton reward="double_coins" label="Optional ad → double coins bonus" />
@@ -108,31 +145,44 @@ export function GamePlayer({ slug }: { slug: string }) {
     </>
   );
 
-  return (
-    <div className="mx-auto max-w-5xl px-4 py-8 md:px-6">
-      {!art && (
-        <div className="mb-4">
-          <p className="text-xs uppercase tracking-[0.3em] text-neon-cyan/70">
-            {isPremiumGame ? 'Premium · Fair Challenge' : 'Now Playing'}
-          </p>
-          <h1 className="font-display text-2xl text-white md:text-3xl">{entry.title}</h1>
-        </div>
-      )}
+  const chrome = (
+    <AttractiveGameChrome
+      title={entry.title}
+      subtitle={
+        art
+          ? 'Touch-ready · chapter art · fair challenge'
+          : isPremiumGame
+            ? 'Premium · touch controls · fair challenge'
+            : 'Touch-ready · drag or use pads to move'
+      }
+      accent={accent}
+      accent2={accent2}
+      score={score}
+      ended={ended}
+      isPremium={!!isPremiumGame}
+      cover={art?.cover}
+      compact={!!art && !isPremiumGame}
+      footer={
+        <p className="py-1 text-center text-[11px] text-white/40 sm:text-left">
+          Phone & tablet: use on-screen pads or drag on the game. Desktop: WASD / arrows + Space.
+        </p>
+      }
+    >
+      {playSurface}
+    </AttractiveGameChrome>
+  );
 
+  return (
+    <div className="mx-auto max-w-5xl px-3 py-6 sm:px-4 md:px-6 md:py-8">
       {art && !isPremiumGame ? (
         <DeepGameShell slug={slug} title={entry.title} isPremiumGame={!!isPremiumGame} onPlayingChange={setPlaying}>
-          {canvasBlock}
+          {chrome}
         </DeepGameShell>
       ) : (
-        canvasBlock
+        chrome
       )}
 
-      <p className="mt-4 text-sm text-white/45">
-        {art
-          ? 'Deep unique interface · chapter art · character models · free tier ads between chapters/pause (Premium removes ads)'
-          : 'Easy to start · Difficult to master · Always rewarding'}
-      </p>
-      <div className="mt-4 flex gap-3">
+      <div className="mt-5 flex flex-wrap gap-3">
         <Link href="/games" className="text-sm text-neon-cyan hover:underline">
           Library
         </Link>

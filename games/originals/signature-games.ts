@@ -313,10 +313,10 @@ export const survivalIsland: GameFactory = () => {
       if (!ctx.alive) return;
       hunger -= 4 * ctx.dt;
       if (hunger <= 0) gameOver(ctx);
-      if (ctx.keys.has('a')) p.x -= 0.3 * ctx.dt;
-      if (ctx.keys.has('d')) p.x += 0.3 * ctx.dt;
-      if (ctx.keys.has('w')) p.y -= 0.3 * ctx.dt;
-      if (ctx.keys.has('s')) p.y += 0.3 * ctx.dt;
+      if (ctx.keys.has('a') || ctx.keys.has('arrowleft')) p.x -= 0.3 * ctx.dt;
+      if (ctx.keys.has('d') || ctx.keys.has('arrowright')) p.x += 0.3 * ctx.dt;
+      if (ctx.keys.has('w') || ctx.keys.has('arrowup')) p.y -= 0.3 * ctx.dt;
+      if (ctx.keys.has('s') || ctx.keys.has('arrowdown')) p.y += 0.3 * ctx.dt;
       p.x = clamp(p.x, 0.05, 0.95);
       p.y = clamp(p.y, 0.05, 0.95);
       if (ctx.keys.has('e')) {
@@ -541,10 +541,10 @@ export const oceanExplorer: GameFactory = () => {
     update(ctx) {
       restart(ctx, reset);
       if (!ctx.alive) return;
-      if (ctx.keys.has('a')) p.x -= 0.35 * ctx.dt;
-      if (ctx.keys.has('d')) p.x += 0.35 * ctx.dt;
-      if (ctx.keys.has('w')) p.y -= 0.3 * ctx.dt;
-      if (ctx.keys.has('s')) p.y += 0.35 * ctx.dt;
+      if (ctx.keys.has('a') || ctx.keys.has('arrowleft')) p.x -= 0.35 * ctx.dt;
+      if (ctx.keys.has('d') || ctx.keys.has('arrowright')) p.x += 0.35 * ctx.dt;
+      if (ctx.keys.has('w') || ctx.keys.has('arrowup')) p.y -= 0.3 * ctx.dt;
+      if (ctx.keys.has('s') || ctx.keys.has('arrowdown')) p.y += 0.35 * ctx.dt;
       p.x = clamp(p.x, 0.05, 0.95);
       p.y = clamp(p.y, 0.1, 0.92);
       depth = Math.max(depth, p.y * 100);
@@ -594,10 +594,10 @@ export const monsterArena: GameFactory = () => {
     update(ctx) {
       restart(ctx, reset);
       if (!ctx.alive) return;
-      if (ctx.keys.has('a')) mon.x -= 0.35 * ctx.dt;
-      if (ctx.keys.has('d')) mon.x += 0.35 * ctx.dt;
-      if (ctx.keys.has('w')) mon.y -= 0.35 * ctx.dt;
-      if (ctx.keys.has('s')) mon.y += 0.35 * ctx.dt;
+      if (ctx.keys.has('a') || ctx.keys.has('arrowleft')) mon.x -= 0.35 * ctx.dt;
+      if (ctx.keys.has('d') || ctx.keys.has('arrowright')) mon.x += 0.35 * ctx.dt;
+      if (ctx.keys.has('w') || ctx.keys.has('arrowup')) mon.y -= 0.35 * ctx.dt;
+      if (ctx.keys.has('s') || ctx.keys.has('arrowdown')) mon.y += 0.35 * ctx.dt;
       mon.x = clamp(mon.x, 0.05, 0.95);
       mon.y = clamp(mon.y, 0.05, 0.95);
       if (Math.random() < 0.05) orbs.push({ x: rand(0.1, 0.9), y: rand(0.1, 0.9) });
@@ -675,8 +675,8 @@ export const pirateSeas: GameFactory = () => {
     update(ctx) {
       restart(ctx, reset);
       if (!ctx.alive) return;
-      if (ctx.keys.has('a')) ship.x -= 0.4 * ctx.dt;
-      if (ctx.keys.has('d')) ship.x += 0.4 * ctx.dt;
+      if (ctx.keys.has('a') || ctx.keys.has('arrowleft')) ship.x -= 0.4 * ctx.dt;
+      if (ctx.keys.has('d') || ctx.keys.has('arrowright')) ship.x += 0.4 * ctx.dt;
       ship.x = clamp(ship.x, 0.1, 0.9);
       if (ctx.keys.has(' ') || ctx.pointer.down) cannon.push({ x: ship.x, y: ship.y });
       cannon.forEach((c) => (c.y -= 0.7 * ctx.dt));
@@ -860,8 +860,8 @@ export const skyKingdom: GameFactory = () => {
       restart(ctx, reset);
       if (!ctx.alive) return;
       aim = ctx.pointer.x / ctx.width || aim;
-      if (ctx.keys.has('a')) aim -= 0.4 * ctx.dt;
-      if (ctx.keys.has('d')) aim += 0.4 * ctx.dt;
+      if (ctx.keys.has('a') || ctx.keys.has('arrowleft')) aim -= 0.4 * ctx.dt;
+      if (ctx.keys.has('d') || ctx.keys.has('arrowright')) aim += 0.4 * ctx.dt;
       aim = clamp(aim, 0.05, 0.95);
       if (ctx.keys.has(' ') || ctx.pointer.down) shots.push({ x: aim, y: 0.75 });
       shots.forEach((s) => (s.y -= 0.6 * ctx.dt));
@@ -933,10 +933,10 @@ export const infinityArena: GameFactory = () => {
     update(ctx) {
       restart(ctx, reset);
       if (!ctx.alive) return;
-      if (ctx.keys.has('a')) p.x -= 0.4 * ctx.dt;
-      if (ctx.keys.has('d')) p.x += 0.4 * ctx.dt;
-      if (ctx.keys.has('w')) p.y -= 0.4 * ctx.dt;
-      if (ctx.keys.has('s')) p.y += 0.4 * ctx.dt;
+      if (ctx.keys.has('a') || ctx.keys.has('arrowleft')) p.x -= 0.4 * ctx.dt;
+      if (ctx.keys.has('d') || ctx.keys.has('arrowright')) p.x += 0.4 * ctx.dt;
+      if (ctx.keys.has('w') || ctx.keys.has('arrowup')) p.y -= 0.4 * ctx.dt;
+      if (ctx.keys.has('s') || ctx.keys.has('arrowdown')) p.y += 0.4 * ctx.dt;
       p.x = clamp(p.x, 0.08, 0.92);
       p.y = clamp(p.y, 0.08, 0.92);
       if (ctx.keys.has(' ') || ctx.pointer.down) {
