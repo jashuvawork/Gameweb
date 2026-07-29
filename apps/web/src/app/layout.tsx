@@ -11,24 +11,24 @@ import { AdSenseBanner, GoogleAnalytics } from '@/components/AdsAnalytics';
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.APP_URL || 'http://localhost:3000'),
   title: {
-    default: 'JASHUVA GAMES — Play Forever.',
-    template: '%s · JASHUVA GAMES',
+    default: 'Jgames — Play Forever.',
+    template: '%s · Jgames',
   },
   description:
-    'JASHUVA GAMES is a premium progressive web gaming platform. Play on phone, tablet, laptop, and desktop. Free polished games, endless adventures, no pay-to-win.',
-  applicationName: 'JASHUVA GAMES',
+    'Jgames is a premium progressive web gaming platform. Play on phone, tablet, laptop, and desktop. Free polished games, endless adventures, no pay-to-win.',
+  applicationName: 'Jgames',
   authors: [{ name: 'Jashuva' }],
-  keywords: ['JASHUVA GAMES', 'Play Forever', 'PWA games', 'arcade', 'premium gaming'],
+  keywords: ['Jgames', 'JASHUVA GAMES', 'Play Forever', 'PWA games', 'arcade', 'premium gaming'],
   openGraph: {
     type: 'website',
-    siteName: 'JASHUVA GAMES',
-    title: 'JASHUVA GAMES — Play Forever.',
+    siteName: 'Jgames',
+    title: 'Jgames — Play Forever.',
     description: 'Premium progressive gaming. Free forever games. Endless stories.',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'JASHUVA GAMES' }],
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Jgames' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'JASHUVA GAMES — Play Forever.',
+    title: 'Jgames — Play Forever.',
     description: 'Premium progressive gaming platform.',
     images: ['/og.png'],
   },
@@ -56,8 +56,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'WebSite',
-              name: 'JASHUVA GAMES',
+              name: 'Jgames',
               slogan: 'Play Forever.',
+              alternateName: 'JASHUVA GAMES',
               url: process.env.APP_URL || 'http://localhost:3000',
               potentialAction: {
                 '@type': 'SearchAction',

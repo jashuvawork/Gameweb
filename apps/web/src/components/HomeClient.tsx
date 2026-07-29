@@ -81,9 +81,9 @@ export function HomeClient({ initialGames }: { initialGames: Game[] }) {
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-display text-4xl font-extrabold tracking-[0.18em] text-neon-cyan neon-text sm:text-6xl md:text-7xl"
+            className="font-display text-5xl font-extrabold tracking-[0.06em] text-neon-cyan neon-text sm:text-6xl md:text-7xl"
           >
-            JASHUVA GAMES
+            Jgames
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
