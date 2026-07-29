@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Sora:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-void: #05050a;
+  --bg-deep: #0a0a12;
+  --neon-cyan: #00f0ff;
+  --neon-magenta: #ff2bd6;
+  --neon-lime: #7cff6b;
+  --neon-gold: #ffc857;
+  --glass: rgba(16, 16, 28, 0.55);
+  --glass-border: rgba(0, 240, 255, 0.18);
+  --text: #e8f7ff;
+  --muted: #8ba3b8;
+  --font-orbitron: 'Orbitron', sans-serif;
+  --font-sora: 'Sora', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg-void);
+  color: var(--text);
+  font-family: var(--font-sora);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(0, 240, 255, 0.35);
+  color: #fff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.neon-text {
+  text-shadow: 0 0 18px rgba(0, 240, 255, 0.55);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 3px;
+}
+
+@keyframes drift {
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-2%, 1%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.9; }
+}
+
+.bg-atmosphere {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0, 240, 255, 0.18), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 90% 20%, rgba(255, 43, 214, 0.12), transparent 50%),
+    radial-gradient(ellipse 50% 40% at 10% 80%, rgba(124, 255, 107, 0.08), transparent 50%),
+    linear-gradient(180deg, #05050a 0%, #0a0a12 50%, #05050a 100%);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: var(--neon-cyan);
+  color: #05050a;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
