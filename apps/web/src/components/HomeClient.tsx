@@ -174,6 +174,26 @@ export function HomeClient({ initialGames }: { initialGames: Game[] }) {
       <GameRail title="Recently Added" games={recent} />
 
       <section className="mx-auto max-w-7xl px-4 py-10 md:px-6">
+        <h2 className="font-display text-xl tracking-wide md:text-2xl">Play on any device</h2>
+        <p className="mt-1 text-sm text-white/50">
+          JGames is a Progressive Web App — open in your browser or install to the home screen.
+        </p>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            { t: 'Mobile phones', d: 'iOS Safari · Chrome · Samsung Internet' },
+            { t: 'Tablets', d: 'iPad · Android tablets · foldables' },
+            { t: 'Computers', d: 'Windows · macOS · Linux · Chromebook' },
+            { t: 'Controls', d: 'Touch, mouse, and keyboard supported' },
+          ].map((x) => (
+            <div key={x.t} className="rounded-2xl border border-white/10 p-4">
+              <p className="font-display text-neon-cyan">{x.t}</p>
+              <p className="mt-1 text-sm text-white/50">{x.d}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-10 md:px-6">
         <h2 className="font-display text-xl tracking-wide md:text-2xl">Genres</h2>
         <p className="mt-1 text-sm text-white/50">One tap into a universe.</p>
         <div className="mt-5 flex flex-wrap gap-2">

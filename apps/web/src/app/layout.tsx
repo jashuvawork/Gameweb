@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     template: '%s · JASHUVA GAMES',
   },
   description:
-    'JASHUVA GAMES is a premium progressive web gaming platform. Play forever with free arcade classics, endless AI adventures, and a no pay-to-win store.',
+    'JASHUVA GAMES is a premium progressive web gaming platform. Play on phone, tablet, laptop, and desktop. Free polished games, endless adventures, no pay-to-win.',
   applicationName: 'JASHUVA GAMES',
   authors: [{ name: 'Jashuva' }],
   keywords: ['JASHUVA GAMES', 'Play Forever', 'PWA games', 'arcade', 'premium gaming'],

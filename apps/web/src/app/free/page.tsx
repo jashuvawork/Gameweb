@@ -47,6 +47,20 @@ export default function FreeHubPage() {
         seasonal events, and optional rewarded ads. Premium is an upgrade you want, not a wall you hit.
       </p>
 
+      <section className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          { title: 'Phones', body: 'iPhone & Android browsers · tap & swipe · Add to Home Screen' },
+          { title: 'Tablets', body: 'iPad & Android tablets · landscape or portrait' },
+          { title: 'Laptops & Desktops', body: 'Chrome, Edge, Safari, Firefox · keyboard + mouse' },
+          { title: 'Installable PWA', body: 'Install from the browser for an app-like fullscreen play' },
+        ].map((d) => (
+          <div key={d.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+            <p className="font-display text-neon-cyan">{d.title}</p>
+            <p className="mt-1 text-sm text-white/50">{d.body}</p>
+          </div>
+        ))}
+      </section>
+
       {data?.season && (
         <div className="mt-8 rounded-3xl border border-neon-lime/25 bg-gradient-to-r from-[#0a1a12] to-[#101828] p-6">
           <p className="text-xs uppercase tracking-[0.3em] text-neon-lime">Seasonal Event</p>
