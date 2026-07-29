@@ -34,4 +34,4 @@ See [PUBLISHER.md](./PUBLISHER.md). Pipeline:
 - AI Studio generation persisted to `AiGeneratedContent`
 - AdSense config + site ads kill-switch
 
-Default owner: **Jashuva** (`jashuvawork@gmail.com`)
+Default owner: **J** (`jashuvawork@gmail.com`)

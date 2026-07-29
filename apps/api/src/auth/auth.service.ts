@@ -245,7 +245,7 @@ export class AuthService {
   async setup2FA(userId: string) {
     const user = await this.prisma.user.findUniqueOrThrow({ where: { id: userId } });
     const secret = authenticator.generateSecret();
-    const otpauth = authenticator.keyuri(user.email, 'JASHUVA GAMES', secret);
+    const otpauth = authenticator.keyuri(user.email, 'Jgames', secret);
     const qr = await QRCode.toDataURL(otpauth);
     await this.prisma.user.update({
       where: { id: userId },

@@ -118,7 +118,7 @@ export default function OwnerDashboard() {
     <div className="mx-auto flex min-h-screen max-w-[1400px]">
       <aside className="hidden w-64 shrink-0 border-r border-white/5 p-4 md:block">
         <p className="font-display text-sm tracking-[0.2em] text-neon-cyan">SUPER OWNER</p>
-        <p className="mt-1 text-xs text-white/40">{user?.displayName || 'Jashuva'}</p>
+        <p className="mt-1 text-xs text-white/40">{user?.displayName || 'J'}</p>
         <nav className="mt-6 flex flex-col gap-1" aria-label="Owner">
           {NAV.map((label) => {
             const id = slugify(label);

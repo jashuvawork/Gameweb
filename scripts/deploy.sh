@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-echo "JASHUVA GAMES deploy helper"
+echo "Jgames deploy helper"
 echo "1) Push to main (triggers CI)"
 echo "2) Vercel: link apps/web"
 echo "3) Railway: deploy apps/api with DATABASE_URL + REDIS_URL"

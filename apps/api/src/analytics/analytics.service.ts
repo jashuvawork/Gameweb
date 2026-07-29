@@ -22,6 +22,6 @@ export class AnalyticsService {
       this.prisma.game.count({ where: { published: true, hidden: false } }),
       this.prisma.playSession.count(),
     ]);
-    return { games, plays, brand: 'JASHUVA GAMES' };
+    return { games, plays, brand: 'Jgames' };
   }
 }

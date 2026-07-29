@@ -1,8 +1,8 @@
 {
-  "name": "jashuva-games",
+  "name": "jgames",
   "version": "1.0.0",
   "private": true,
-  "description": "JASHUVA GAMES — Play Forever. Premium progressive web gaming platform.",
+  "description": "Jgames — Play Forever. Premium progressive web gaming platform.",
   "packageManager": "pnpm@9.15.0",
   "scripts": {
     "dev": "pnpm --parallel --filter @jashuva/web --filter @jashuva/api dev",

@@ -12,5 +12,5 @@ else
   "$PRISMA_BIN" db push --skip-generate --schema=/app/apps/api/prisma/schema.prisma
 fi
 
-echo "Starting JASHUVA GAMES API..."
+echo "Starting Jgames API..."
 exec node dist/main.js

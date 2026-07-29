@@ -198,9 +198,9 @@ export const CREDIT_PACKS = [
 ] as const;
 
 export const BRAND = {
-  name: 'JASHUVA GAMES',
+  name: 'Jgames',
   tagline: 'Play Forever.',
-  owner: 'Jashuva',
+  owner: 'J',
   supportEmail: 'jashuvawork@gmail.com',
 } as const;
 

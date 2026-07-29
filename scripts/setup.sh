@@ -3,7 +3,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-echo "==> JASHUVA GAMES setup"
+echo "==> Jgames setup"
 if [[ ! -f .env ]]; then
   cp .env.example .env
   OWNER_PASS=$(openssl rand -base64 24 | tr -d '/+=' | head -c 24)

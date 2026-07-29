@@ -1,5 +1,5 @@
-/* JASHUVA GAMES service worker — offline shell + background sync hook */
-const CACHE = 'jashuva-v1';
+/* Jgames service worker — offline shell + background sync hook */
+const CACHE = 'jgames-v1';
 const CORE = ['/', '/games', '/manifest.json', '/icons/icon-192.png', '/icons/icon-512.png'];
 
 self.addEventListener('install', (event) => {
@@ -35,6 +35,6 @@ self.addEventListener('sync', (event) => {
 });
 
 self.addEventListener('push', (event) => {
-  const data = event.data ? event.data.json() : { title: 'JASHUVA GAMES', body: 'Play Forever.' };
+  const data = event.data ? event.data.json() : { title: 'Jgames', body: 'Play Forever.' };
   event.waitUntil(self.registration.showNotification(data.title, { body: data.body, icon: '/icons/icon-192.png' }));
 });

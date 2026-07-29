@@ -78,7 +78,7 @@ export default function LoginPage() {
         />
         {error && <p className="text-sm text-neon-magenta">{error}</p>}
         <button type="submit" className="w-full rounded-full bg-neon-cyan py-3 text-sm font-semibold text-void-950">
-          {mode === 'login' ? 'Enter' : 'Join JASHUVA'}
+          {mode === 'login' ? 'Enter' : 'Join Jgames'}
         </button>
         <button
           type="button"

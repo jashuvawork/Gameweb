@@ -1,7 +1,7 @@
 /**
  * JGames Original Story Mode
  * Rise of the Forgotten King — Endless Story
- * Original JASHUVA GAMES content. No copyrighted assets.
+ * Original Jgames content. No copyrighted assets.
  */
 import {
   type GameFactory,

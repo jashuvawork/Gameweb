@@ -68,7 +68,7 @@ REDIS_URL=${{Redis.REDIS_URL}}
 JWT_SECRET=<generate-long-random>
 JWT_REFRESH_SECRET=<generate-long-random>
 COOKIE_SECRET=<generate-long-random>
-OWNER_NAME=Jashuva
+OWNER_NAME=J
 OWNER_EMAIL=jashuvawork@gmail.com
 OWNER_PASSWORD=<strong-unique-password>
 TWO_FACTOR_ENFORCE=false
@@ -109,7 +109,7 @@ railway link
 railway variables set NODE_ENV=production PORT=4000 \
   APP_URL=https://jgames.space \
   CORS_ORIGINS=https://jgames.space \
-  OWNER_NAME=Jashuva \
+  OWNER_NAME=J \
   OWNER_EMAIL=jashuvawork@gmail.com \
   OWNER_PASSWORD='...' \
   JWT_SECRET='...' \

@@ -1,6 +1,6 @@
 /**
  * Genre-adaptive mini-games for expandable catalog titles.
- * Original JASHUVA GAMES playable stubs — full campaign expansions ship over time.
+ * Original Jgames playable stubs — full campaign expansions ship over time.
  */
 import {
   type GameFactory,

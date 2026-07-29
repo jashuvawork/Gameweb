@@ -20,12 +20,9 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-white/5 bg-void-950/70 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 md:px-6">
-        <Link href="/" className="group flex shrink-0 flex-col leading-none" aria-label="JASHUVA GAMES home">
-          <span className="font-display text-lg font-800 tracking-[0.12em] text-neon-cyan neon-text md:text-xl">
-            JASHUVA
-          </span>
-          <span className="font-display text-[10px] tracking-[0.35em] text-white/70 group-hover:text-neon-magenta">
-            GAMES
+        <Link href="/" className="group flex shrink-0 items-center leading-none" aria-label="Jgames home">
+          <span className="font-display text-lg font-800 tracking-[0.08em] text-neon-cyan neon-text md:text-xl">
+            Jgames
           </span>
         </Link>
 
