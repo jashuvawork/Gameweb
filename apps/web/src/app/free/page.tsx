@@ -5,7 +5,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import { FREE_TIER_GAMES } from '@games/catalog/free-tier';
 import { api } from '@/lib/api';
-import { RewardedAdButton } from '@/components/AdsAnalytics';
+import { RewardedAdButton, AdSenseInFeed } from '@/components/AdsAnalytics';
 import type { RootState } from '@/store';
 
 const CATEGORIES = ['Arcade', 'Racing', 'Puzzle', 'Action', 'Adventure'] as const;
@@ -60,6 +60,8 @@ export default function FreeHubPage() {
           </div>
         ))}
       </section>
+
+      <AdSenseInFeed />
 
       {data?.season && (
         <div className="mt-8 rounded-3xl border border-neon-lime/25 bg-gradient-to-r from-[#0a1a12] to-[#101828] p-6">

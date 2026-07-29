@@ -7,9 +7,22 @@
 3. Enable Authenticator 2FA via `/api/auth/2fa/setup`
 4. Dashboard at `/owner`
 
+Live publisher automation is **only** available on the owner page (not public).
+
 ## Sections
 
-Dashboard · Revenue · Users · Games · Subscriptions · Credits · Analytics · Reports · Content · AI Studio · Notifications · Moderation · Advertisements · Server Status · Logs · Database · Backups · Settings
+**Publisher** · Dashboard · Revenue · Users · Games · Subscriptions · Credits · Analytics · Reports · Content · AI Studio · Notifications · Moderation · Advertisements · Server Status · Logs · Database · Backups · Settings
+
+## Publisher (primary automation)
+
+See [PUBLISHER.md](./PUBLISHER.md). Pipeline:
+
+1. Create / update game draft
+2. Generate screenshots/banners, SEO, social copy, Google Ads **draft**
+3. Review
+4. Publish on website (instant)
+5. Queue YouTube / social / Ads for approval
+6. Approve → export / manual publish (Google Ads never auto-launches)
 
 ## Capabilities
 
@@ -19,5 +32,6 @@ Dashboard · Revenue · Users · Games · Subscriptions · Credits · Analytics 
 - CRUD games, coupons, broadcasts
 - Encrypted backups + one-click restore (settings)
 - AI Studio generation persisted to `AiGeneratedContent`
+- AdSense config + site ads kill-switch
 
 Default owner: **Jashuva** (`jashuvawork@gmail.com`)

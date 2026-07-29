@@ -157,6 +157,7 @@ model Game {
   engine        String     @default("canvas")
   thumbnail     String?
   cover         String?
+  trailerUrl    String?
   featured      Boolean    @default(false)
   trending      Boolean    @default(false)
   endlessStory  Boolean    @default(false)
@@ -173,10 +174,92 @@ model Game {
   cloudSaves    CloudSave[]
   playSessions  PlaySession[]
   aiContent     AiGeneratedContent[]
+  publishJobs   PublishJob[]
 
   @@index([access])
   @@index([featured, trending])
   @@index([published, hidden])
+}
+
+/** Owner Publisher — site publish is immediate; external channels require review */
+enum PublishJobStatus {
+  DRAFT
+  ASSETS_READY
+  PENDING_REVIEW
+  APPROVED
+  PUBLISHED_SITE
+  REJECTED
+}
+
+enum PublishChannel {
+  SITE
+  YOUTUBE
+  SOCIAL_X
+  SOCIAL_INSTAGRAM
+  SOCIAL_FACEBOOK
+  SOCIAL_LINKEDIN
+  SOCIAL_DISCORD
+  GOOGLE_ADS
+}
+
+enum QueueItemStatus {
+  PENDING_REVIEW
+  APPROVED
+  REJECTED
+  EXPORTED
+  FAILED
+}
+
+model PublishJob {
+  id             String           @id @default(cuid())
+  gameId         String?
+  game           Game?            @relation(fields: [gameId], references: [id], onDelete: SetNull)
+  slug           String
+  title          String
+  description    String
+  tagline        String?
+  genres         String[]
+  access         GameAccess       @default(FREE)
+  creditCost     Int              @default(0)
+  engine         String           @default("canvas")
+  featured       Boolean          @default(false)
+  trailerUrl     String?
+  screenshotUrls String[]
+  thumbnailUrl   String?
+  coverUrl       String?
+  status         PublishJobStatus @default(DRAFT)
+  seo            Json?
+  marketing      Json?
+  adsDraft       Json?
+  releaseNotes   String?
+  featureList    String[]
+  reviewNotes    String?
+  createdBy      String?
+  reviewedBy     String?
+  publishedAt    DateTime?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  queueItems     PublishQueueItem[]
+
+  @@index([status, updatedAt])
+  @@index([slug])
+}
+
+model PublishQueueItem {
+  id          String          @id @default(cuid())
+  jobId       String
+  job         PublishJob      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  channel     PublishChannel
+  status      QueueItemStatus @default(PENDING_REVIEW)
+  payload     Json
+  reviewNote  String?
+  exportHint  String?
+  publishedAt DateTime?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@index([status, channel])
+  @@index([jobId])
 }
 
 model Achievement {

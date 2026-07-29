@@ -5,9 +5,11 @@ import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { api } from '@/lib/api';
+import { OwnerPublisher } from '@/components/owner/OwnerPublisher';
 import type { RootState } from '@/store';
 
 const NAV = [
+  'Publisher',
   'Dashboard',
   'Revenue',
   'Users',
@@ -36,7 +38,7 @@ export default function OwnerDashboard() {
   const { user, accessToken } = useSelector((s: RootState) => s.auth);
   const router = useRouter();
   const pathname = usePathname();
-  const [section, setSection] = useState('dashboard');
+  const [section, setSection] = useState('publisher');
   const [data, setData] = useState<unknown>(null);
   const [error, setError] = useState('');
   const [idle, setIdle] = useState(Date.now());
@@ -69,12 +71,13 @@ export default function OwnerDashboard() {
   }, [idle, router]);
 
   useEffect(() => {
-    if (!accessToken) return;
+    if (!accessToken || section === 'publisher') return;
     const map: Record<string, string> = {
       dashboard: '/owner/dashboard',
       users: '/owner/users',
       games: '/owner/games',
       analytics: '/owner/analytics',
+      advertisements: '/owner/publisher/ads-config',
       'server-status': '/owner/server-status',
       logs: '/owner/logs',
       settings: '/owner/settings',
@@ -83,7 +86,9 @@ export default function OwnerDashboard() {
     };
     const path = map[section];
     if (!path) {
-      setData({ info: `${section} panel ready — wire to matching owner API.` });
+      setData({
+        info: `${section} panel ready — use Publisher for game releases, assets, and external review queues.`,
+      });
       return;
     }
     setError('');
@@ -122,7 +127,9 @@ export default function OwnerDashboard() {
                 key={label}
                 type="button"
                 onClick={() => setSection(id)}
-                className={`rounded-lg px-3 py-2 text-left text-sm ${section === id ? 'bg-neon-cyan/10 text-neon-cyan' : 'text-white/55 hover:text-white'}`}
+                className={`rounded-lg px-3 py-2 text-left text-sm ${
+                  section === id ? 'bg-neon-cyan/10 text-neon-cyan' : 'text-white/55 hover:text-white'
+                }`}
               >
                 {label}
               </button>
@@ -134,23 +141,60 @@ export default function OwnerDashboard() {
         </Link>
       </aside>
       <main className="flex-1 p-4 md:p-8">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3 md:hidden">
+          <select
+            className="rounded-xl border border-white/10 bg-void-950 px-3 py-2 text-sm text-white"
+            value={section}
+            onChange={(e) => setSection(e.target.value)}
+          >
+            {NAV.map((label) => (
+              <option key={label} value={slugify(label)}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h1 className="font-display text-2xl capitalize text-white">{section.replace(/-/g, ' ')}</h1>
           <div className="flex gap-2">
-            <button type="button" onClick={runAiStudio} className="rounded-full border border-neon-magenta/40 px-4 py-2 text-xs text-neon-magenta">
+            <button
+              type="button"
+              onClick={() => setSection('publisher')}
+              className="rounded-full border border-neon-gold/40 px-4 py-2 text-xs text-neon-gold"
+            >
+              Open Publisher
+            </button>
+            <button
+              type="button"
+              onClick={runAiStudio}
+              className="rounded-full border border-neon-magenta/40 px-4 py-2 text-xs text-neon-magenta"
+            >
               AI Studio Generate
             </button>
-            <button type="button" onClick={createBackup} className="rounded-full border border-neon-cyan/40 px-4 py-2 text-xs text-neon-cyan">
+            <button
+              type="button"
+              onClick={createBackup}
+              className="rounded-full border border-neon-cyan/40 px-4 py-2 text-xs text-neon-cyan"
+            >
               Backup Now
             </button>
           </div>
         </div>
-        {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
-        <pre className="glass mt-6 max-h-[70vh] overflow-auto rounded-2xl p-4 text-xs text-neon-lime/90">
-          {JSON.stringify(data, null, 2)}
-        </pre>
+
+        {section === 'publisher' && accessToken ? (
+          <div className="mt-6">
+            <OwnerPublisher token={accessToken} />
+          </div>
+        ) : (
+          <>
+            {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
+            <pre className="glass mt-6 max-h-[70vh] overflow-auto rounded-2xl p-4 text-xs text-neon-lime/90">
+              {JSON.stringify(data, null, 2)}
+            </pre>
+          </>
+        )}
         <p className="mt-4 text-[10px] text-white/25">
-          Path {pathname} · noindex · JWT + RBAC · audit logged · session timeout 30m
+          Path {pathname} · noindex · JWT + RBAC · publisher review gates · session timeout 30m
         </p>
       </main>
     </div>
