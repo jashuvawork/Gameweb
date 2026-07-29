@@ -16,10 +16,14 @@ export class SeedModule implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    await this.ensureSuperOwner();
-    await this.ensureGames();
-    await this.ensureAchievements();
-    await this.ensureSettings();
+    try {
+      await this.ensureSuperOwner();
+      await this.ensureGames();
+      await this.ensureAchievements();
+      await this.ensureSettings();
+    } catch (err) {
+      this.logger.error(`Seed failed (continuing boot): ${(err as Error).message}`);
+    }
   }
 
   private async ensureSuperOwner() {
