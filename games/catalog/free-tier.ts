@@ -191,6 +191,42 @@ export const FREE_TIER_GAMES: FreeCatalogEntry[] = [
     tags: ['crystals', 'free'],
     category: 'Adventure',
   },
+  {
+    slug: 'color-bus-trip',
+    title: 'Color Bus Trip',
+    description: 'Hyper-casual color sorting — load matching passenger clusters into the right buses and clear the lot.',
+    tagline: 'Match. Board. Depart.',
+    genres: ['Puzzle', 'Casual'],
+    tags: ['hypercasual', 'color-sort', 'free', 'mobile'],
+    category: 'Puzzle',
+  },
+  {
+    slug: 'frost-outpost',
+    title: 'Frost Outpost',
+    description: 'Arctic survival management — gather wood and food on conveyors, stoke the fire, and endure colder nights.',
+    tagline: 'Stay warm. Survive.',
+    genres: ['Adventure', 'Casual'],
+    tags: ['hypercasual', 'survival', 'management', 'free'],
+    category: 'Adventure',
+  },
+  {
+    slug: 'traffic-color-sort',
+    title: 'Traffic Color Sort',
+    description: 'Send each car to the matching color exit. Fast tap puzzles that ramp every level.',
+    tagline: 'One tap. Right lane.',
+    genres: ['Puzzle', 'Casual'],
+    tags: ['hypercasual', 'color-sort', 'free'],
+    category: 'Puzzle',
+  },
+  {
+    slug: 'belt-kitchen',
+    title: 'Belt Kitchen',
+    description: 'Prep, cook, and ship orders down the conveyor before the shift timer hits zero.',
+    tagline: 'Cook the rush',
+    genres: ['Arcade', 'Casual'],
+    tags: ['hypercasual', 'idle', 'free'],
+    category: 'Arcade',
+  },
 ];
 
 export const FREE_TIER_SLUGS = FREE_TIER_GAMES.map((g) => g.slug);

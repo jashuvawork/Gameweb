@@ -41,9 +41,9 @@ export default function FreeHubPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 md:px-6">
       <p className="text-xs uppercase tracking-[0.35em] text-neon-cyan/80">Free Tier · Growth Engine</p>
-      <h1 className="mt-3 font-display text-4xl text-white">20 polished free games</h1>
+      <h1 className="mt-3 font-display text-4xl text-white">24 polished free games</h1>
       <p className="mt-3 max-w-2xl text-white/60">
-        Complete experiences — not demos. Each free game has its own interface, chapter art, and character models.
+        Complete experiences — including hyper-casual color-sort & survival hits like Color Bus Trip and Frost Outpost.
         Free tier shows ads between chapters and on pause — <Link href="/store" className="text-neon-gold">Premium is ad-free</Link>.
       </p>
 

@@ -30,9 +30,11 @@ const CHAPTER_TITLES: Record<string, string[]> = {
 
 function titlesFor(slug: string): string[] {
   if (['neon-drift', 'desert-rally', 'mountain-racer', 'street-sprint'].includes(slug)) return CHAPTER_TITLES.racing;
-  if (['ancient-temple', 'number-master', 'logic-blocks', 'memory-match'].includes(slug)) return CHAPTER_TITLES.puzzle;
+  if (['ancient-temple', 'number-master', 'logic-blocks', 'memory-match', 'color-bus-trip', 'traffic-color-sort'].includes(slug))
+    return CHAPTER_TITLES.puzzle;
   if (['zombie-escape', 'shadow-ninja', 'alien-attack', 'robot-arena'].includes(slug)) return CHAPTER_TITLES.action;
-  if (['jungle-explorer', 'treasure-hunter', 'lost-kingdom', 'crystal-quest'].includes(slug)) return CHAPTER_TITLES.adventure;
+  if (['jungle-explorer', 'treasure-hunter', 'lost-kingdom', 'crystal-quest', 'frost-outpost'].includes(slug))
+    return CHAPTER_TITLES.adventure;
   return CHAPTER_TITLES.default;
 }
 
@@ -57,6 +59,10 @@ const META: { slug: string; title: string; accent: string; accent2: string; blur
   { slug: 'treasure-hunter', title: 'Treasure Hunter', accent: '#ffc857', accent2: '#00f0ff', blurbs: ['Map scrap.', 'Trap vault.', 'Gold tide.', 'Cursed chest.', 'Fortune.'] },
   { slug: 'lost-kingdom', title: 'Lost Kingdom', accent: '#c084fc', accent2: '#ffc857', blurbs: ['Ruined gate.', 'Throne dust.', 'Ghost court.', 'Crown shard.', 'Reclaimed.'] },
   { slug: 'crystal-quest', title: 'Crystal Quest', accent: '#00f0ff', accent2: '#c084fc', blurbs: ['Cave mouth.', 'Glow lake.', 'Resonance.', 'Crystal heart.', 'Song end.'] },
+  { slug: 'color-bus-trip', title: 'Color Bus Trip', accent: '#ff4d6d', accent2: '#4cc9f0', blurbs: ['First bay.', 'Mixed queue.', 'Rush hour.', 'Rainbow depot.', 'Master lot.'] },
+  { slug: 'frost-outpost', title: 'Frost Outpost', accent: '#6ec3ff', accent2: '#ff7a18', blurbs: ['Campfire.', 'Conveyor.', 'Blizzard.', 'Deep freeze.', 'Warm crown.'] },
+  { slug: 'traffic-color-sort', title: 'Traffic Color Sort', accent: '#70e000', accent2: '#ffd60a', blurbs: ['Green light.', 'Jam ahead.', 'Merge maze.', 'Night exit.', 'Clear roads.'] },
+  { slug: 'belt-kitchen', title: 'Belt Kitchen', accent: '#fb7185', accent2: '#fbbf24', blurbs: ['Prep line.', 'Heat up.', 'Rush ticket.', 'Double shift.', 'Head chef.'] },
 ];
 
 export const GAME_ART_PACKS: Record<string, GameArtPack> = Object.fromEntries(
