@@ -28,22 +28,21 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      # version comes from package.json "packageManager" — do not also set "version" here
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: pnpm
       - run: pnpm install
       - run: pnpm --filter @jashuva/shared build
-      - name: Generate Prisma + migrate
+      - name: Generate Prisma + sync schema
         working-directory: apps/api
         env:
           DATABASE_URL: postgresql://jashuva:jashuva_secret@localhost:5432/jashuva_games?schema=public
         run: |
           pnpm prisma:generate
-          npx prisma migrate dev --name init --skip-seed || npx prisma db push
+          npx prisma db push
       - run: pnpm --filter @jashuva/api test
       - run: pnpm --filter @jashuva/api build
       - run: pnpm --filter @jashuva/web build
