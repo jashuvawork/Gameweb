@@ -33,6 +33,7 @@ import {
 import { createExpandableGame } from './originals/expandable-factory';
 import { buildExpandedCatalog } from './catalog/jgames-200';
 import { FREE_GAME_FACTORIES } from './free/polished-free-games';
+import { HYPERCASUAL_FACTORIES } from './free/hypercasual-games';
 
 function hud(ctx: EngineContext, title: string) {
   drawScore(ctx);
@@ -1132,6 +1133,10 @@ export const GAME_REGISTRY: Record<string, { title: string; create: GameFactory 
   'treasure-hunter': { title: 'Treasure Hunter', create: FREE_GAME_FACTORIES['treasure-hunter'].create },
   'lost-kingdom': { title: 'Lost Kingdom', create: FREE_GAME_FACTORIES['lost-kingdom'].create },
   'crystal-quest': { title: 'Crystal Quest', create: FREE_GAME_FACTORIES['crystal-quest'].create },
+  'color-bus-trip': { title: 'Color Bus Trip', create: HYPERCASUAL_FACTORIES['color-bus-trip'].create },
+  'frost-outpost': { title: 'Frost Outpost', create: HYPERCASUAL_FACTORIES['frost-outpost'].create },
+  'traffic-color-sort': { title: 'Traffic Color Sort', create: HYPERCASUAL_FACTORIES['traffic-color-sort'].create },
+  'belt-kitchen': { title: 'Belt Kitchen', create: HYPERCASUAL_FACTORIES['belt-kitchen'].create },
   // JGames Premium Signature Originals
   'rise-of-the-forgotten-king': { title: 'Rise of the Forgotten King', create: riseOfTheForgottenKing },
   'neon-velocity': { title: 'Neon Velocity', create: neonVelocity },

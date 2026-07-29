@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import type { EngineHandle } from '@games/engine/core';
 
-export type TouchScheme = 'full' | 'jump' | 'steer' | 'paddle' | 'fire';
+export type TouchScheme = 'full' | 'jump' | 'steer' | 'paddle' | 'fire' | 'tap';
 
 const JUMP_SLUGS = new Set(['pixel-runner', 'sky-glider', 'vault-hopper']);
 const STEER_SLUGS = new Set([
@@ -22,12 +22,22 @@ const FIRE_SLUGS = new Set([
   'robot-arena',
   'shadow-ninja',
 ]);
+const TAP_SLUGS = new Set([
+  'color-bus-trip',
+  'frost-outpost',
+  'traffic-color-sort',
+  'belt-kitchen',
+  'number-master',
+  'memory-match',
+  'logic-blocks',
+]);
 
 export function touchSchemeFor(slug: string): TouchScheme {
   if (JUMP_SLUGS.has(slug)) return 'jump';
   if (STEER_SLUGS.has(slug)) return 'steer';
   if (PADDLE_SLUGS.has(slug)) return 'paddle';
   if (FIRE_SLUGS.has(slug)) return 'fire';
+  if (TAP_SLUGS.has(slug)) return 'tap';
   return 'full';
 }
 
@@ -125,9 +135,41 @@ export function TouchControls({
     >
       <div className="mb-3 flex items-center justify-between gap-2">
         <p className="text-[10px] uppercase tracking-[0.28em] text-white/45">Touch controls</p>
-        <p className="text-[10px] text-white/35">Drag on game · or use pads</p>
+        <p className="text-[10px] text-white/35">
+          {scheme === 'tap' ? 'Tap on the game to play' : 'Drag on game · or use pads'}
+        </p>
       </div>
 
+      {scheme === 'tap' ? (
+        <div className="flex items-center justify-between gap-3">
+          <p className="max-w-[14rem] text-xs leading-snug text-white/50">
+            Hyper-casual: tap crowds, buses, resources, and stations directly on the playfield.
+          </p>
+          {ended ? (
+            <button
+              type="button"
+              aria-label="Restart"
+              className={`${btn} ${action}`}
+              style={{ background: accent2, borderColor: accent2, color: '#0a0a12' }}
+              onPointerDown={(e) => {
+                e.preventDefault();
+                onRestart?.();
+                pressKeys(['r']);
+                window.setTimeout(() => releaseKeys(['r']), 120);
+              }}
+            >
+              RESTART
+            </button>
+          ) : (
+            <div
+              className={`${btn} ${action} pointer-events-none opacity-70`}
+              style={{ background: `${accent}22`, borderColor: `${accent}55` }}
+            >
+              TAP
+            </div>
+          )}
+        </div>
+      ) : (
       <div className="flex items-end justify-between gap-3">
         {/* Left: movement */}
         <div className="flex flex-col items-center gap-1.5">
@@ -240,6 +282,7 @@ export function TouchControls({
           )}
         </div>
       </div>
+      )}
     </div>
   );
 }
