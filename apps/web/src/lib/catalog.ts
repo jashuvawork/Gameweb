@@ -1,7 +1,8 @@
 import type { Game } from '@/lib/api';
+import { SIGNATURE_ORIGINALS, buildExpandedCatalog } from '@games/catalog/jgames-200';
 
-/** Client-side catalog fallback — mirrors seeded free games for instant play */
-export const FREE_GAME_CATALOG: Game[] = [
+/** Classic free arcade set */
+const CLASSICS: Game[] = [
   {
     id: 'space-defender',
     slug: 'space-defender',
@@ -84,7 +85,7 @@ export const FREE_GAME_CATALOG: Game[] = [
     id: 'tank-arena',
     slug: 'tank-arena',
     title: 'Tank Arena',
-    description: 'Tactical arena duels with neon cover.',
+    description: 'Tactical arena duels with destructible neon cover.',
     genres: ['Action', 'Strategy'],
     tags: ['arena'],
     access: 'FREE',
@@ -97,7 +98,7 @@ export const FREE_GAME_CATALOG: Game[] = [
     id: 'alien-blaster',
     slug: 'alien-blaster',
     title: 'Alien Blaster',
-    description: 'Rapid-fire swarms across crystalline caverns.',
+    description: 'Rapid-fire insectoid swarms across crystalline caverns.',
     genres: ['Action', 'Horror'],
     tags: ['blaster'],
     access: 'FREE',
@@ -110,8 +111,8 @@ export const FREE_GAME_CATALOG: Game[] = [
     id: 'sky-shooter',
     slug: 'sky-shooter',
     title: 'Sky Shooter',
-    description: 'Soar through storm fronts and clear the skies.',
-    genres: ['Arcade', 'Action'],
+    description: 'Aerial dogfights above luminous cloud cities.',
+    genres: ['Action', 'Arcade'],
     tags: ['flight'],
     access: 'FREE',
     creditCost: 0,
@@ -123,21 +124,21 @@ export const FREE_GAME_CATALOG: Game[] = [
     id: 'fruit-slice',
     slug: 'fruit-slice',
     title: 'Fruit Slice',
-    description: 'Slice cascading fruit orbs — avoid void bombs.',
+    description: 'Slice cascading fruit with precise swipes.',
     genres: ['Arcade'],
-    tags: ['reflex'],
+    tags: ['swipe'],
     access: 'FREE',
     creditCost: 0,
     featured: false,
-    trending: true,
+    trending: false,
     endlessStory: false,
   },
   {
     id: 'tower-defender',
     slug: 'tower-defender',
     title: 'Tower Defender',
-    description: 'Place energy towers and hold the lane.',
-    genres: ['Strategy', 'Survival'],
+    description: 'Hold the gate against endless waves.',
+    genres: ['Strategy', 'Arcade'],
     tags: ['tower'],
     access: 'FREE',
     creditCost: 0,
@@ -149,7 +150,7 @@ export const FREE_GAME_CATALOG: Game[] = [
     id: 'endless-racer',
     slug: 'endless-racer',
     title: 'Endless Racer',
-    description: 'Neon highway racing with reactive traffic.',
+    description: 'Lane-shift forever through neon highways.',
     genres: ['Racing', 'Arcade'],
     tags: ['racing'],
     access: 'FREE',
@@ -162,9 +163,9 @@ export const FREE_GAME_CATALOG: Game[] = [
     id: 'zombie-survival',
     slug: 'zombie-survival',
     title: 'Zombie Survival',
-    description: 'Nightfall horde survival with crafting scraps.',
-    genres: ['Survival', 'Horror'],
-    tags: ['survival'],
+    description: 'Survive night raids in a fortified outpost.',
+    genres: ['Survival', 'Horror', 'Action'],
+    tags: ['zombies'],
     access: 'FREE',
     creditCost: 0,
     featured: false,
@@ -175,7 +176,7 @@ export const FREE_GAME_CATALOG: Game[] = [
     id: 'word-puzzle',
     slug: 'word-puzzle',
     title: 'Word Puzzle',
-    description: 'Assemble luminous letters into words.',
+    description: 'Find words in shifting letter grids.',
     genres: ['Puzzle'],
     tags: ['words'],
     access: 'FREE',
@@ -188,22 +189,9 @@ export const FREE_GAME_CATALOG: Game[] = [
     id: 'sudoku',
     slug: 'sudoku',
     title: 'Sudoku',
-    description: 'Number grids with elegant neon UI.',
+    description: 'Classic number logic on a luminous board.',
     genres: ['Puzzle'],
     tags: ['logic'],
-    access: 'FREE',
-    creditCost: 0,
-    featured: false,
-    trending: false,
-    endlessStory: false,
-  },
-  {
-    id: 'chess',
-    slug: 'chess',
-    title: 'Chess',
-    description: 'Original chess with cinematic board lighting.',
-    genres: ['Strategy', 'Puzzle'],
-    tags: ['board'],
     access: 'FREE',
     creditCost: 0,
     featured: true,
@@ -211,10 +199,23 @@ export const FREE_GAME_CATALOG: Game[] = [
     endlessStory: false,
   },
   {
+    id: 'chess',
+    slug: 'chess',
+    title: 'Chess',
+    description: 'Classic chess with a neon board aesthetic.',
+    genres: ['Strategy'],
+    tags: ['board'],
+    access: 'FREE',
+    creditCost: 0,
+    featured: false,
+    trending: false,
+    endlessStory: false,
+  },
+  {
     id: 'checkers',
     slug: 'checkers',
     title: 'Checkers',
-    description: 'Fast checkers on a glowing board.',
+    description: 'Fast checkers duels on a glowing checkerboard.',
     genres: ['Strategy'],
     tags: ['board'],
     access: 'FREE',
@@ -263,6 +264,51 @@ export const FREE_GAME_CATALOG: Game[] = [
     endlessStory: false,
   },
 ];
+
+function toGame(g: {
+  slug: string;
+  title: string;
+  description: string;
+  genres: string[];
+  tags: string[];
+  access: 'FREE' | 'PREMIUM' | 'CREDITS';
+  creditCost: number;
+  featured?: boolean;
+  trending?: boolean;
+  endlessStory?: boolean;
+}): Game {
+  return {
+    id: g.slug,
+    slug: g.slug,
+    title: g.title,
+    description: g.description,
+    genres: g.genres,
+    tags: g.tags,
+    access: g.access,
+    creditCost: g.creditCost,
+    featured: !!g.featured,
+    trending: !!g.trending,
+    endlessStory: !!g.endlessStory,
+  };
+}
+
+const classicSlugs = CLASSICS.map((g) => g.slug);
+const expanded = buildExpandedCatalog(classicSlugs);
+
+/** Full client catalog fallback (~200) for offline / API-down play browsing */
+export const FREE_GAME_CATALOG: Game[] = [
+  ...CLASSICS,
+  ...SIGNATURE_ORIGINALS.map(toGame),
+  ...expanded.filter((g) => !SIGNATURE_ORIGINALS.some((s) => s.slug === g.slug)).map(toGame),
+];
+
+/** Playable free + signature titles for static generation */
+export const PLAYABLE_FREE_SLUGS = [
+  ...CLASSICS.map((g) => g.slug),
+  ...SIGNATURE_ORIGINALS.map((g) => g.slug),
+];
+
+export const STORY_MODE = SIGNATURE_ORIGINALS.find((g) => g.slug === 'rise-of-the-forgotten-king')!;
 
 export const GENRES = [
   'Adventure',

@@ -1,4 +1,5 @@
 import { GameAccess } from '@prisma/client';
+import { SIGNATURE_ORIGINALS, buildExpandedCatalog } from './catalog/jgames-200';
 
 export const FREE_GAMES = [
   {
@@ -244,37 +245,51 @@ export const FREE_GAMES = [
   },
 ].map((g) => ({ ...g, tags: g.tags, creditCost: 0, published: true, hidden: false, version: '1.0.0' }));
 
-/** Expandable premium catalog stubs (200+ scalable pattern) */
-export const PREMIUM_GAME_SEEDS = Array.from({ length: 40 }, (_, i) => {
-  const n = i + 1;
-  const genres = [
-    ['Adventure', 'Fantasy'],
-    ['RPG', 'Fantasy'],
-    ['Sci-Fi', 'Action'],
-    ['Horror', 'Survival'],
-    ['Racing', 'Arcade'],
-    ['Strategy', 'Simulation'],
-    ['MMORPG', 'Fantasy'],
-    ['Idle', 'Simulation'],
-  ][n % 8];
-  return {
-    slug: `premium-realm-${n}`,
-    title: `Realm ${n}: ${['Aether', 'Nyx', 'Quasar', 'Obsidian', 'Lumen'][n % 5]} Chronicles`,
-    description: `Premium endless adventure #${n}. Procedural kingdoms, AI NPCs, no final ending.`,
-    tagline: 'The story never finishes',
-    genres,
-    tags: ['premium', 'endless'],
-    access: n % 3 === 0 ? GameAccess.CREDITS : GameAccess.PREMIUM,
-    creditCost: n % 3 === 0 ? 25 + (n % 5) * 10 : 0,
-    engine: 'canvas',
-    featured: n <= 3,
-    trending: n <= 8,
-    endlessStory: genres.includes('Adventure') || genres.includes('RPG'),
+const classicSlugs = FREE_GAMES.map((g) => g.slug);
+
+const expanded = buildExpandedCatalog(classicSlugs);
+
+/** Signature originals + expandable premium catalog (~180) */
+export const PREMIUM_GAME_SEEDS = expanded
+  .filter((g) => !classicSlugs.includes(g.slug))
+  .map((g) => ({
+    slug: g.slug,
+    title: g.title,
+    description: g.description,
+    tagline: g.tagline,
+    genres: g.genres,
+    tags: g.tags,
+    access: g.access === 'FREE' ? GameAccess.FREE : g.access === 'CREDITS' ? GameAccess.CREDITS : GameAccess.PREMIUM,
+    creditCost: g.creditCost,
+    engine: g.engine,
+    featured: !!g.featured,
+    trending: !!g.trending,
+    endlessStory: !!g.endlessStory,
     published: true,
     hidden: false,
     version: '1.0.0',
-  };
-});
+  }));
+
+/** Ensure signature free titles are also in FREE_GAMES-style seed via PREMIUM list if access FREE */
+export const SIGNATURE_FREE_SEEDS = SIGNATURE_ORIGINALS.filter((g) => g.access === 'FREE').map((g) => ({
+  slug: g.slug,
+  title: g.title,
+  description: g.description,
+  tagline: g.tagline,
+  genres: g.genres,
+  tags: g.tags,
+  access: GameAccess.FREE,
+  creditCost: 0,
+  engine: g.engine,
+  featured: !!g.featured,
+  trending: !!g.trending,
+  endlessStory: !!g.endlessStory,
+  published: true,
+  hidden: false,
+  version: '1.0.0',
+}));
+
+export const ALL_SEED_GAMES = [...FREE_GAMES, ...SIGNATURE_FREE_SEEDS, ...PREMIUM_GAME_SEEDS.filter((g) => g.access !== GameAccess.FREE)];
 
 export const ACHIEVEMENTS = [
   { key: 'first_play', title: 'First Light', description: 'Play your first game', icon: 'spark', xpReward: 50, coinReward: 25 },
@@ -282,4 +297,6 @@ export const ACHIEVEMENTS = [
   { key: 'score_10k', title: 'Pulse Master', description: 'Reach 10,000 score in any game', icon: 'crown', xpReward: 150, coinReward: 75 },
   { key: 'premium_join', title: 'Forever Player', description: 'Join Premium', icon: 'diamond', xpReward: 300, coinReward: 0 },
   { key: 'friends_5', title: 'Squad Signal', description: 'Add 5 friends', icon: 'users', xpReward: 100, coinReward: 50 },
+  { key: 'ashvale_chief', title: 'Chief of Ashvale', description: 'Become Chief in Rise of the Forgotten King', icon: 'staff', xpReward: 250, coinReward: 100 },
+  { key: 'endless_frontier', title: 'Endless Frontier', description: 'Reach Frontier 5 in Story Mode', icon: 'map', xpReward: 400, coinReward: 150 },
 ];

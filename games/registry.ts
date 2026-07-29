@@ -8,6 +8,30 @@ import {
   rand,
   clamp,
 } from './engine/core';
+import { riseOfTheForgottenKing } from './originals/rise-of-the-forgotten-king';
+import {
+  neonVelocity,
+  shadowAssassin,
+  galaxyHunters,
+  dragonLegacy,
+  survivalIsland,
+  cyberDetective,
+  wildFrontier,
+  kingdomBuilders,
+  oceanExplorer,
+  zombieFrontier,
+  monsterArena,
+  ninjaLegends,
+  speedLegends,
+  pirateSeas,
+  robotWars,
+  ancientTemple,
+  battleCommand,
+  skyKingdom,
+  infinityArena,
+} from './originals/signature-games';
+import { createExpandableGame } from './originals/expandable-factory';
+import { buildExpandedCatalog } from './catalog/jgames-200';
 
 function hud(ctx: EngineContext, title: string) {
   drawScore(ctx);
@@ -1106,4 +1130,35 @@ export const GAME_REGISTRY: Record<string, { title: string; create: GameFactory 
   'twenty-forty-eight': { title: '2048', create: twentyFortyEight },
   'bubble-pop': { title: 'Bubble Pop', create: bubblePop },
   'memory-match': { title: 'Memory Match', create: memoryMatch },
+  // JGames Signature Originals
+  'rise-of-the-forgotten-king': { title: 'Rise of the Forgotten King', create: riseOfTheForgottenKing },
+  'neon-velocity': { title: 'Neon Velocity', create: neonVelocity },
+  'shadow-assassin': { title: 'Shadow Assassin', create: shadowAssassin },
+  'galaxy-hunters': { title: 'Galaxy Hunters', create: galaxyHunters },
+  'dragon-legacy': { title: 'Dragon Legacy', create: dragonLegacy },
+  'survival-island': { title: 'Survival Island', create: survivalIsland },
+  'cyber-detective': { title: 'Cyber Detective', create: cyberDetective },
+  'wild-frontier': { title: 'Wild Frontier', create: wildFrontier },
+  'kingdom-builders': { title: 'Kingdom Builders', create: kingdomBuilders },
+  'ocean-explorer': { title: 'Ocean Explorer', create: oceanExplorer },
+  'zombie-frontier': { title: 'Zombie Frontier', create: zombieFrontier },
+  'monster-arena': { title: 'Monster Arena', create: monsterArena },
+  'ninja-legends': { title: 'Ninja Legends', create: ninjaLegends },
+  'speed-legends': { title: 'Speed Legends', create: speedLegends },
+  'pirate-seas': { title: 'Pirate Seas', create: pirateSeas },
+  'robot-wars': { title: 'Robot Wars', create: robotWars },
+  'ancient-temple': { title: 'Ancient Temple', create: ancientTemple },
+  'battle-command': { title: 'Battle Command', create: battleCommand },
+  'sky-kingdom': { title: 'Sky Kingdom', create: skyKingdom },
+  'infinity-arena': { title: 'Infinity Arena', create: infinityArena },
 };
+
+// Register expandable catalog titles as genre-adaptive playable sessions
+for (const g of buildExpandedCatalog([])) {
+  if (!GAME_REGISTRY[g.slug]) {
+    GAME_REGISTRY[g.slug] = {
+      title: g.title,
+      create: createExpandableGame({ title: g.title, genres: g.genres }),
+    };
+  }
+}
