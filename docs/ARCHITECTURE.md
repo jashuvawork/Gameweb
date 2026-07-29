@@ -2,7 +2,7 @@
 
 ## Overview
 
-JASHUVA GAMES is a monorepo PWA gaming platform designed for extreme lightness with a premium neon aesthetic.
+Jgames is a monorepo PWA gaming platform designed for extreme lightness with a premium neon aesthetic.
 
 ```
 Browser (PWA)

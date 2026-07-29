@@ -88,7 +88,7 @@ export class StoreService {
             currency: 'usd',
             unit_amount: Math.round(pack.price * 100),
             product_data: {
-              name: `${pack.credits + pack.bonus} JASHUVA Credits`,
+              name: `${pack.credits + pack.bonus} J Credits`,
               description: 'Unlock premium games & cosmetics. Not gambling. No pay-to-win.',
             },
           },
@@ -127,7 +127,7 @@ export class StoreService {
             currency: 'usd',
             unit_amount: Math.round(amount * 100),
             recurring: { interval: plan.priceYearly ? 'year' : 'month' },
-            product_data: { name: `JASHUVA ${plan.name}` },
+            product_data: { name: `J ${plan.name}` },
           },
           quantity: 1,
         },

@@ -28,7 +28,7 @@ export class SeedModule implements OnModuleInit {
 
   private async ensureSuperOwner() {
     const email = (this.config.get('OWNER_EMAIL') || 'jashuvawork@gmail.com').toLowerCase();
-    const name = this.config.get('OWNER_NAME') || 'Jashuva';
+    const name = this.config.get('OWNER_NAME') || 'J';
     let password = this.config.get<string>('OWNER_PASSWORD');
 
     const existing = await this.prisma.user.findFirst({ where: { role: Role.SUPER_OWNER } });
@@ -93,7 +93,7 @@ export class SeedModule implements OnModuleInit {
 
   private async ensureSettings() {
     const defaults: Record<string, unknown> = {
-      websiteName: 'JASHUVA GAMES',
+      websiteName: 'Jgames',
       tagline: 'Play Forever.',
       maintenanceMode: false,
       adsEnabled: true,

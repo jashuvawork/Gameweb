@@ -15,7 +15,7 @@ async function main() {
       data: {
         email,
         username: 'jashuva',
-        displayName: process.env.OWNER_NAME || 'Jashuva',
+        displayName: process.env.OWNER_NAME || 'J',
         passwordHash: await argon2.hash(password, { type: argon2.argon2id }),
         role: Role.SUPER_OWNER,
         emailVerified: true,

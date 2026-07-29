@@ -17,8 +17,8 @@ export const metadata: Metadata = {
   description:
     'Jgames is a premium progressive web gaming platform. Play on phone, tablet, laptop, and desktop. Free polished games, endless adventures, no pay-to-win.',
   applicationName: 'Jgames',
-  authors: [{ name: 'Jashuva' }],
-  keywords: ['Jgames', 'JASHUVA GAMES', 'Play Forever', 'PWA games', 'arcade', 'premium gaming'],
+  authors: [{ name: 'J' }],
+  keywords: ['Jgames', 'Play Forever', 'PWA games', 'arcade', 'premium gaming'],
   openGraph: {
     type: 'website',
     siteName: 'Jgames',
@@ -58,7 +58,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@type': 'WebSite',
               name: 'Jgames',
               slogan: 'Play Forever.',
-              alternateName: 'JASHUVA GAMES',
               url: process.env.APP_URL || 'http://localhost:3000',
               potentialAction: {
                 '@type': 'SearchAction',

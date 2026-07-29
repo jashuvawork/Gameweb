@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const game = FREE_GAME_CATALOG.find((g) => g.slug === slug);
   return {
     title: game?.title || 'Play',
-    description: game?.description || 'Play on JASHUVA GAMES',
+    description: game?.description || 'Play on Jgames',
   };
 }
 

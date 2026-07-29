@@ -21,7 +21,7 @@ export class HealthController {
       status: db === 'ok' ? 'healthy' : 'degraded',
       db,
       redis: await this.redis.health(),
-      service: 'jashuva-games-api',
+      service: 'jgames-api',
       ts: new Date().toISOString(),
     };
   }

@@ -1,6 +1,6 @@
 /**
  * JGames Original Signature Titles (19 companions to Rise of the Forgotten King)
- * Completely original concepts for JASHUVA GAMES.
+ * Completely original concepts for Jgames.
  */
 import {
   type GameFactory,

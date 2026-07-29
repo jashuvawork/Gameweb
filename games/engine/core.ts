@@ -1,5 +1,5 @@
 /**
- * JASHUVA Universal Game Engine
+ * J Universal Game Engine
  * Drop a folder into /games/<slug> with manifest + createGame factory.
  * Scales toward 10,000+ titles via registry discovery.
  * Touch / tablet: virtual keys + canvas drag steering.

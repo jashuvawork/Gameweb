@@ -3,7 +3,7 @@ import GamesClient from './GamesClient';
 
 export const metadata = {
   title: 'Game Library',
-  description: 'Browse free and premium original games on JASHUVA GAMES.',
+  description: 'Browse free and premium original games on Jgames.',
 };
 
 export default function GamesPage() {

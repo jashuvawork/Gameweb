@@ -16,6 +16,6 @@ describe('HealthController', () => {
     const controller = module.get(HealthController);
     const result = await controller.check();
     expect(result.status).toBe('healthy');
-    expect(result.service).toBe('jashuva-games-api');
+    expect(result.service).toBe('jgames-api');
   });
 });
