@@ -22,10 +22,10 @@ function tip(ctx: EngineContext, text: string) {
   if (!ctx.alive) {
     ctx.ctx.fillStyle = '#ff2bd6';
     ctx.ctx.font = '700 22px Orbitron, sans-serif';
-    ctx.ctx.fillText('TRY AGAIN — R', ctx.width / 2 - 90, ctx.height / 2);
+    ctx.ctx.fillText('TRY AGAIN', ctx.width / 2 - 70, ctx.height / 2);
     ctx.ctx.fillStyle = 'rgba(255,255,255,0.55)';
     ctx.ctx.font = '12px Sora, sans-serif';
-    ctx.ctx.fillText('Fair loss — you know what to try next', ctx.width / 2 - 110, ctx.height / 2 + 28);
+    ctx.ctx.fillText('Tap RESTART below · or press R', ctx.width / 2 - 100, ctx.height / 2 + 28);
   }
 }
 
@@ -108,7 +108,7 @@ export const pixelRunnerFree: GameFactory = () => {
       ctx.ctx.fillStyle = '#00f0ff';
       ctx.ctx.fillRect(ctx.width * 0.12, y * ctx.height, 26, 26);
       secretToast(ctx, secret, 'Neon Alley');
-      tip(ctx, `Pixel Runner · Jump · gems ${gems}`);
+      tip(ctx, `Pixel Runner · Tap JUMP / drag up · gems ${gems}`);
     },
   };
 };
@@ -179,7 +179,7 @@ export const galaxyDefender: GameFactory = () => {
       ctx.ctx.fillStyle = '#e8f7ff';
       ctx.ctx.fillRect(px * ctx.width - 16, ctx.height * 0.88, 32, 18);
       secretToast(ctx, secret, 'Void Cache');
-      tip(ctx, `Galaxy Defender · Shoot · crystals ${crystals}`);
+      tip(ctx, `Galaxy Defender · Pads + FIRE · crystals ${crystals}`);
     },
   };
 };
@@ -247,7 +247,7 @@ export const brickBlast: GameFactory = () => {
       ctx.ctx.arc(ball.x * ctx.width, ball.y * ctx.height, 8, 0, Math.PI * 2);
       ctx.ctx.fill();
       secretToast(ctx, secret, 'Gold Brick');
-      tip(ctx, 'Brick Blast · Move paddle');
+      tip(ctx, 'Brick Blast · Hold ◀ ▶ pads');
     },
   };
 };
@@ -306,7 +306,7 @@ export const snakeEvolutionFree: GameFactory = () => {
         ctx.ctx.fillStyle = '#ffc857';
         ctx.ctx.fillRect(relic.x * cw + 2, relic.y * ch + 2, cw - 4, ch - 4);
       }
-      tip(ctx, 'Snake Evolution · Arrows · find golden relic');
+      tip(ctx, 'Snake Evolution · D-pad / drag · golden relic');
     },
   };
 };
@@ -374,7 +374,7 @@ function makeRacer(title: string, bg1: string, bg2: string, accent: string): Gam
         ctx.ctx.fillStyle = '#00f0ff';
         ctx.ctx.fillRect(lane * lw + lw * 0.25, ctx.height * 0.7, lw * 0.5, 48);
         secretToast(ctx, secret, 'Shortcut');
-        tip(ctx, `${title} · A/D lanes · Space nitro · coins ${coins}`);
+        tip(ctx, `${title} · Steer pads · NITRO · coins ${coins}`);
       },
     };
   };
@@ -459,7 +459,7 @@ export const ancientTempleFree: GameFactory = () => {
         }
       ctx.ctx.fillStyle = '#00f0ff';
       ctx.ctx.fillRect(px * cw + 8, py * ch + 8, cw - 16, ch - 16);
-      tip(ctx, `Ancient Temple · Avoid traps · relics ${relics}`);
+      tip(ctx, `Ancient Temple · D-pad / drag · relics ${relics}`);
     },
   };
 };
@@ -565,7 +565,7 @@ export const numberMaster: GameFactory = () => {
           ctx.ctx.fillText(String(v), x + cw * 0.35, y + ch * 0.55);
         }
       });
-      tip(ctx, 'Number Master · Merge tiles · reach 2048+');
+      tip(ctx, 'Number Master · Swipe / D-pad · 2048+');
     },
   };
 };
@@ -619,7 +619,7 @@ export const logicBlocks: GameFactory = () => {
         }
       });
       secretToast(ctx, secret, 'Perfect Cipher');
-      tip(ctx, 'Logic Blocks · Match the hidden pattern');
+      tip(ctx, 'Logic Blocks · Pads + JUMP to cycle');
     },
   };
 };
@@ -755,7 +755,7 @@ function actionArena(title: string, enemyColor: string): GameFactory {
         ctx.ctx.fillStyle = '#e8f7ff';
         ctx.ctx.fillRect(px * ctx.width - 12, py * ctx.height - 12, 24, 24);
         secretToast(ctx, secret, 'Hero Card');
-        tip(ctx, `${title} · Move & shoot · cards ${cards}`);
+        tip(ctx, `${title} · D-pad + FIRE · cards ${cards}`);
       },
     };
   };
@@ -836,7 +836,7 @@ function adventureExplore(title: string, accent: string): GameFactory {
         ctx.ctx.fillStyle = '#00f0ff';
         ctx.ctx.fillRect(px * ctx.width - 11, py * ctx.height - 11, 22, 22);
         secretToast(ctx, secretRoom, 'Hidden Chamber');
-        tip(ctx, `${title} · Explore · finds ${found}`);
+        tip(ctx, `${title} · D-pad / drag · finds ${found}`);
       },
     };
   };
