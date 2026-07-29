@@ -23,11 +23,23 @@ export class StoreService {
       cosmetics: [
         { id: 'theme-neon-cyan', name: 'Neon Cyan Theme', type: 'theme', priceCredits: 50 },
         { id: 'theme-void-gold', name: 'Void Gold Theme', type: 'theme', priceCredits: 80 },
-        { id: 'skin-aurora', name: 'Aurora Avatar Frame', type: 'skin', priceCredits: 40 },
+        { id: 'theme-living-world', name: 'Living World Profile Theme', type: 'theme', priceCredits: 90 },
+        { id: 'skin-aurora', name: 'Aurora Avatar Frame', type: 'frame', priceCredits: 40 },
+        { id: 'hair-ember-crest', name: 'Ember Crest Hairstyle', type: 'hairstyle', priceCredits: 35 },
+        { id: 'armor-crystal', name: 'Crystal Engineer Armor', type: 'armor', priceCredits: 70 },
+        { id: 'clothing-sky-nomad', name: 'Sky Nomad Cloak', type: 'clothing', priceCredits: 55 },
         { id: 'pet-spark', name: 'Spark Pet', type: 'pet', priceCredits: 120 },
-        { id: 'anim-victory', name: 'Victory Burst', type: 'animation', priceCredits: 60 },
+        { id: 'pet-mini-dragon', name: 'Mini Dragon Companion Skin', type: 'pet', priceCredits: 150 },
+        { id: 'backpack-explorer', name: 'Explorer Pack', type: 'backpack', priceCredits: 45 },
+        { id: 'trail-stardust', name: 'Stardust Trail', type: 'trail', priceCredits: 60 },
+        { id: 'anim-victory', name: 'Victory Burst', type: 'victory', priceCredits: 60 },
+        { id: 'emote-cheer', name: 'Cheer Emote', type: 'emote', priceCredits: 25 },
+        { id: 'mount-hoverfoil', name: 'Hoverfoil Mount', type: 'mount', priceCredits: 200 },
+        { id: 'music-ashvale', name: 'Ashvale Dawn Music Pack', type: 'music', priceCredits: 80 },
+        { id: 'spell-fx-aurora', name: 'Aurora Spell FX', type: 'spell', priceCredits: 95 },
       ],
-      note: 'NO PAY TO WIN — cosmetics, themes, skins, pets, and animations only.',
+      note: 'NO PAY TO WIN — cosmetics only (skins, pets, mounts, trails, themes, music). Never power.',
+      philosophy: 'Easy to start. Difficult to master. Always rewarding.',
     };
   }
 

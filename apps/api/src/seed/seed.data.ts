@@ -270,15 +270,15 @@ export const PREMIUM_GAME_SEEDS = expanded
     version: '1.0.0',
   }));
 
-/** Ensure signature free titles are also in FREE_GAMES-style seed via PREMIUM list if access FREE */
-export const SIGNATURE_FREE_SEEDS = SIGNATURE_ORIGINALS.filter((g) => g.access === 'FREE').map((g) => ({
+/** Signature originals are Premium Story / Signature titles */
+export const SIGNATURE_PREMIUM_SEEDS = SIGNATURE_ORIGINALS.map((g) => ({
   slug: g.slug,
   title: g.title,
   description: g.description,
   tagline: g.tagline,
   genres: g.genres,
   tags: g.tags,
-  access: GameAccess.FREE,
+  access: GameAccess.PREMIUM,
   creditCost: 0,
   engine: g.engine,
   featured: !!g.featured,
@@ -289,7 +289,11 @@ export const SIGNATURE_FREE_SEEDS = SIGNATURE_ORIGINALS.filter((g) => g.access =
   version: '1.0.0',
 }));
 
-export const ALL_SEED_GAMES = [...FREE_GAMES, ...SIGNATURE_FREE_SEEDS, ...PREMIUM_GAME_SEEDS.filter((g) => g.access !== GameAccess.FREE)];
+export const ALL_SEED_GAMES = [
+  ...FREE_GAMES,
+  ...SIGNATURE_PREMIUM_SEEDS,
+  ...PREMIUM_GAME_SEEDS.filter((g) => !SIGNATURE_ORIGINALS.some((s) => s.slug === g.slug)),
+];
 
 export const ACHIEVEMENTS = [
   { key: 'first_play', title: 'First Light', description: 'Play your first game', icon: 'spark', xpReward: 50, coinReward: 25 },
@@ -299,4 +303,8 @@ export const ACHIEVEMENTS = [
   { key: 'friends_5', title: 'Squad Signal', description: 'Add 5 friends', icon: 'users', xpReward: 100, coinReward: 50 },
   { key: 'ashvale_chief', title: 'Chief of Ashvale', description: 'Become Chief in Rise of the Forgotten King', icon: 'staff', xpReward: 250, coinReward: 100 },
   { key: 'endless_frontier', title: 'Endless Frontier', description: 'Reach Frontier 5 in Story Mode', icon: 'map', xpReward: 400, coinReward: 150 },
+  { key: 'fair_comeback', title: 'Fair Comeback', description: 'Win after using an assist from Intelligent Difficulty', icon: 'shield', xpReward: 120, coinReward: 40 },
+  { key: 'living_world_week', title: 'World Walker', description: 'Play during an active Living World event', icon: 'globe', xpReward: 180, coinReward: 60 },
+  { key: 'avatar_custom', title: 'Identity Forge', description: 'Customize your avatar class and cosmetics', icon: 'mask', xpReward: 80, coinReward: 30 },
+  { key: 'companion_bond', title: 'Companion Bond', description: 'Name your AI companion', icon: 'heart', xpReward: 80, coinReward: 30 },
 ];

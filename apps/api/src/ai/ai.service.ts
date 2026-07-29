@@ -52,14 +52,21 @@ export class AiService {
     };
   }
 
-  companion(memory: string[] = []) {
-    const mood = pick(['curious', 'protective', 'wry', 'hopeful']);
+  companion(memory: string[] = [], companionName = 'Aether') {
+    const mood = pick(['curious', 'protective', 'wry', 'hopeful', 'encouraging']);
+    const cheers = [
+      'That was close — next time watch the tell before they strike.',
+      'You are learning the pattern. Fair fights favor the patient.',
+      'I believe in your skill. Want a gentle hint, or shall we go again?',
+      'New mechanics beat unfair health bars. Ready for the twist?',
+    ];
     return {
-      name: 'Aether',
+      name: companionName,
       mood,
       line: memory.length
-        ? `I remember when you ${memory[memory.length - 1]}. Shall we press deeper?`
-        : 'I am Aether — your companion across infinite worlds. Where to next?',
+        ? `I remember when you ${memory[memory.length - 1]}. ${pick(cheers)}`
+        : `${companionName} here — hints, cheers, and celebration only. Never pay-to-win power. Where to next?`,
+      abilities: ['hints', 'celebrate', 'danger-react', 'cheer', 'cosmetic-unlocks'],
       memory,
     };
   }

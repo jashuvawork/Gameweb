@@ -17,8 +17,8 @@ export class AiController {
 
   @Post('companion')
   @UseGuards(JwtAuthGuard)
-  companion(@Body() body: { memory?: string[] }) {
-    return this.ai.companion(body.memory);
+  companion(@Body() body: { memory?: string[]; companionName?: string }) {
+    return this.ai.companion(body.memory, body.companionName);
   }
 
   @Post('npc')

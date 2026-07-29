@@ -51,6 +51,11 @@ model User {
   displayName       String
   passwordHash      String?
   avatarUrl         String?
+  avatarClass       String?          @default("Explorer")
+  companionType     String?          @default("Floating Crystal")
+  companionName     String?          @default("Aether")
+  playerTitle       String?
+  cosmetics         Json?
   role              Role             @default(USER)
   status            UserStatus       @default(ACTIVE)
   emailVerified     Boolean          @default(false)
@@ -374,4 +379,20 @@ model SeasonPass {
   rewards     Json
   active      Boolean  @default(true)
   createdAt   DateTime @default(now())
+}
+
+/** Signature JGames feature — weekly world mutations for everyone */
+model LivingWorldEvent {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  title       String
+  description String
+  region      String?
+  startsAt    DateTime
+  endsAt      DateTime
+  active      Boolean  @default(true)
+  rewards     Json?
+  createdAt   DateTime @default(now())
+
+  @@index([active, startsAt])
 }

@@ -4,7 +4,7 @@ import * as argon2 from 'argon2';
 import { randomBytes } from 'crypto';
 import { Role } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
-import { FREE_GAMES, PREMIUM_GAME_SEEDS, ACHIEVEMENTS, ALL_SEED_GAMES, SIGNATURE_FREE_SEEDS } from './seed.data';
+import { FREE_GAMES, PREMIUM_GAME_SEEDS, ACHIEVEMENTS, ALL_SEED_GAMES, SIGNATURE_PREMIUM_SEEDS } from './seed.data';
 
 @Module({})
 export class SeedModule implements OnModuleInit {
@@ -61,7 +61,7 @@ export class SeedModule implements OnModuleInit {
   }
 
   private async ensureGames() {
-    const games = ALL_SEED_GAMES.length ? ALL_SEED_GAMES : [...FREE_GAMES, ...SIGNATURE_FREE_SEEDS, ...PREMIUM_GAME_SEEDS];
+    const games = ALL_SEED_GAMES.length ? ALL_SEED_GAMES : [...FREE_GAMES, ...SIGNATURE_PREMIUM_SEEDS, ...PREMIUM_GAME_SEEDS];
     for (const g of games) {
       await this.prisma.game.upsert({
         where: { slug: g.slug },

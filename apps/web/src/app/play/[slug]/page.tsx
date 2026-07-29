@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import { GamePlayer } from '@/components/GamePlayer';
-import { FREE_GAME_CATALOG, PLAYABLE_FREE_SLUGS } from '@/lib/catalog';
+import { FREE_GAME_CATALOG, PLAYABLE_STATIC_SLUGS } from '@/lib/catalog';
 
 type Props = { params: Promise<{ slug: string }> };
 
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  return PLAYABLE_FREE_SLUGS.map((slug) => ({ slug }));
+  return PLAYABLE_STATIC_SLUGS.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

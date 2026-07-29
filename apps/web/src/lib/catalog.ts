@@ -302,11 +302,14 @@ export const FREE_GAME_CATALOG: Game[] = [
   ...expanded.filter((g) => !SIGNATURE_ORIGINALS.some((s) => s.slug === g.slug)).map(toGame),
 ];
 
-/** Playable free + signature titles for static generation */
-export const PLAYABLE_FREE_SLUGS = [
-  ...CLASSICS.map((g) => g.slug),
-  ...SIGNATURE_ORIGINALS.map((g) => g.slug),
-];
+/** Free arcade classics only */
+export const PLAYABLE_FREE_SLUGS = CLASSICS.map((g) => g.slug);
+
+/** Premium signature titles (gated at play time) */
+export const PLAYABLE_PREMIUM_SLUGS = SIGNATURE_ORIGINALS.map((g) => g.slug);
+
+/** All statically generated play routes */
+export const PLAYABLE_STATIC_SLUGS = [...PLAYABLE_FREE_SLUGS, ...PLAYABLE_PREMIUM_SLUGS];
 
 export const STORY_MODE = SIGNATURE_ORIGINALS.find((g) => g.slug === 'rise-of-the-forgotten-king')!;
 

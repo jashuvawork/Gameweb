@@ -11,6 +11,7 @@ import {
   clamp,
   rand,
 } from '../engine/core';
+import { createDifficulty, recordOutcome, mechanicTier, shouldOfferAssist, consumeAssist } from '../engine/fair-play';
 
 type Vec = { x: number; y: number };
 type Entity = Vec & { hp: number; kind: string; r?: number; spd?: number };
@@ -115,6 +116,8 @@ export const riseOfTheForgottenKing: GameFactory = () => {
   let questDone = false;
   let tradeRoutes = 0;
   let gender = Math.random() > 0.5 ? 'Arin' : 'Arya';
+  let difficulty = createDifficulty();
+  let assistActive = false;
 
   const resetHero = () => {
     hero = {
@@ -185,12 +188,17 @@ export const riseOfTheForgottenKing: GameFactory = () => {
             ? { x: 0.05, y: rand(0.1, 0.9) }
             : { x: 0.95, y: rand(0.1, 0.9) };
     const baseHp = kind === 'zombie' ? 28 + chapter * 4 + frontier * 2 : kind === 'mutant' ? 55 + frontier * 6 : 18 + chapter * 2;
+    const tier = mechanicTier(difficulty.scale);
+    const hpMul = difficulty.scale * (tier === 'intro' ? 0.85 : tier === 'legend' ? 1.1 : 1);
     enemies.push({
       ...pos,
-      hp: baseHp,
+      hp: Math.max(8, Math.floor(baseHp * hpMul)),
       kind,
       r: kind === 'mutant' ? 16 : 11,
-      spd: kind === 'wolf' ? 0.18 : kind === 'mutant' ? 0.12 : 0.1 + Math.min(0.08, frontier * 0.004),
+      spd:
+        (kind === 'wolf' ? 0.18 : kind === 'mutant' ? 0.12 : 0.1 + Math.min(0.08, frontier * 0.004)) *
+        (tier === 'mastery' || tier === 'legend' ? 1.08 : 1) *
+        (assistActive ? 0.85 : 1),
     });
   };
 
@@ -272,8 +280,19 @@ export const riseOfTheForgottenKing: GameFactory = () => {
         if (ctx.keys.has('r')) {
           ctx.keys.delete('r');
           ctx.alive = true;
-          ctx.score = 0;
-          resetWorld();
+          ctx.score = Math.max(0, ctx.score * 0.35);
+          if (shouldOfferAssist(difficulty)) {
+            difficulty = consumeAssist(difficulty);
+            assistActive = true;
+            toast('Companion assist: foes slowed. Learn the pattern — fair fight.');
+          } else {
+            assistActive = false;
+            toast(`${gender} rises wiser. Watch tells. Press into the next try.`);
+          }
+          resetHero();
+          enemies = [];
+          hero.hp = 100;
+          hero.hunger = 80;
         }
         return;
       }
@@ -487,7 +506,8 @@ export const riseOfTheForgottenKing: GameFactory = () => {
 
       if (hero.hp <= 0) {
         ctx.alive = false;
-        toast(`${gender} falls… but legends rise again. Press R.`);
+        difficulty = recordOutcome(difficulty, false);
+        toast(`${gender} falls… but the loss is fair. Press R — try a new approach.`);
         ctx.onGameOver?.(Math.floor(ctx.score));
       }
     },

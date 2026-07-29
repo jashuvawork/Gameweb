@@ -17,6 +17,7 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { HealthModule } from './health/health.module';
 import { SeedModule } from './seed/seed.module';
+import { LivingWorldModule } from './living-world/living-world.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { SeedModule } from './seed/seed.module';
     AnalyticsModule,
     HealthModule,
     SeedModule,
+    LivingWorldModule,
   ],
   providers: [
     {

@@ -1,17 +1,23 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import { api } from '@/lib/api';
 import type { RootState } from '@/store';
-import { SUBSCRIPTION_PLANS, CREDIT_PACKS } from '@jashuva/shared';
+import { SUBSCRIPTION_PLANS, CREDIT_PACKS, DESIGN_PHILOSOPHY } from '@jashuva/shared';
 
 export default function StorePage() {
   const token = useSelector((s: RootState) => s.auth.accessToken);
+  const qc = useQueryClient();
   const { data } = useQuery({
     queryKey: ['catalog'],
-    queryFn: () => api<{ cosmetics: { id: string; name: string; type: string; priceCredits: number }[]; note: string }>('/store/catalog'),
+    queryFn: () =>
+      api<{
+        cosmetics: { id: string; name: string; type: string; priceCredits: number }[];
+        note: string;
+        philosophy?: string;
+      }>('/store/catalog'),
     retry: false,
   });
 
@@ -37,11 +43,21 @@ export default function StorePage() {
     else alert(`Dev mode activated ${tier}`);
   }
 
+  const buyCosmetic = useMutation({
+    mutationFn: (itemId: string) =>
+      api('/store/cosmetics/buy', { method: 'POST', token, body: JSON.stringify({ itemId }) }),
+    onSuccess: () => {
+      alert('Cosmetic unlocked — no gameplay power granted.');
+      qc.invalidateQueries({ queryKey: ['profile'] });
+    },
+    onError: (e: Error) => alert(e.message),
+  });
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 md:px-6">
       <h1 className="font-display text-3xl text-neon-cyan">Store</h1>
       <p className="mt-2 max-w-2xl text-white/55">
-        NO PAY TO WIN. Unlock games with subscription or credits. Cosmetics, themes, skins, pets, and animations only. No gambling.
+        {DESIGN_PHILOSOPHY.motto} NO PAY TO WIN — Premium unlocks worlds; credits buy cosmetics only.
       </p>
 
       <section className="mt-12">
@@ -74,7 +90,7 @@ export default function StorePage() {
 
       <section className="mt-14">
         <h2 className="font-display text-xl">Credits</h2>
-        <p className="mt-1 text-sm text-white/45">Purchased via Stripe. Unlock premium games & cosmetics.</p>
+        <p className="mt-1 text-sm text-white/45">Unlock credit-tier games & cosmetics. Never power.</p>
         <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {CREDIT_PACKS.map((pack) => (
             <button
@@ -92,21 +108,33 @@ export default function StorePage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="font-display text-xl">Cosmetics</h2>
-        <p className="mt-1 text-sm text-white/45">{data?.note || 'Themes · skins · pets · animations'}</p>
+        <h2 className="font-display text-xl">Cosmetic Economy</h2>
+        <p className="mt-1 text-sm text-white/45">{data?.note || 'Skins · pets · mounts · trails · themes · music'}</p>
         <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {(data?.cosmetics || []).map((c) => (
             <div key={c.id} className="glass rounded-2xl p-5">
               <p className="font-display text-white">{c.name}</p>
               <p className="mt-1 text-xs uppercase tracking-wider text-white/40">{c.type}</p>
               <p className="mt-3 text-neon-gold">{c.priceCredits} credits</p>
+              <button
+                type="button"
+                onClick={() => {
+                  if (!token) return alert('Sign in to buy cosmetics');
+                  buyCosmetic.mutate(c.id);
+                }}
+                className="mt-4 rounded-full border border-neon-gold/40 px-4 py-1.5 text-xs text-neon-gold"
+              >
+                Buy cosmetic
+              </button>
             </div>
           ))}
         </div>
       </section>
 
       <p className="mt-10 text-sm text-white/40">
-        <Link href="/games">Browse games</Link>
+        <Link href="/games?access=PREMIUM">Browse premium games</Link>
+        {' · '}
+        <Link href="/living-world">Living World</Link>
       </p>
     </div>
   );
