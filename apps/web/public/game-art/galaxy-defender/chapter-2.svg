@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="hsl(40, 55%, 12%)"/>
+      <stop offset="100%" stop-color="hsl(220, 60%, 18%)"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <circle cx="74" cy="142" r="20" fill="hsl(40, 70%, 45%)" opacity="0.35"/>
+  <circle cx="171" cy="195" r="33" fill="hsl(48, 70%, 45%)" opacity="0.36"/>
+  <circle cx="268" cy="248" r="46" fill="hsl(56, 70%, 45%)" opacity="0.37"/>
+  <circle cx="365" cy="301" r="59" fill="hsl(64, 70%, 45%)" opacity="0.38"/>
+  <circle cx="462" cy="354" r="72" fill="hsl(72, 70%, 45%)" opacity="0.39"/>
+  <circle cx="559" cy="407" r="25" fill="hsl(80, 70%, 45%)" opacity="0.35"/>
+  <circle cx="656" cy="10" r="38" fill="hsl(88, 70%, 45%)" opacity="0.36"/>
+  <circle cx="753" cy="63" r="51" fill="hsl(96, 70%, 45%)" opacity="0.37"/>
+  <circle cx="50" cy="116" r="64" fill="hsl(104, 70%, 45%)" opacity="0.38"/>
+  <circle cx="147" cy="169" r="77" fill="hsl(112, 70%, 45%)" opacity="0.39"/>
+  <circle cx="244" cy="222" r="30" fill="hsl(120, 70%, 45%)" opacity="0.35"/>
+  <circle cx="341" cy="275" r="43" fill="hsl(128, 70%, 45%)" opacity="0.36"/>
+  <circle cx="0" cy="0" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="67" cy="91" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="134" cy="182" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="201" cy="273" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="268" cy="364" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="335" cy="5" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="402" cy="96" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="469" cy="187" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="536" cy="278" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="603" cy="369" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="670" cy="10" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="737" cy="101" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="4" cy="192" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="71" cy="283" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="138" cy="374" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="205" cy="15" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="272" cy="106" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="339" cy="197" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="406" cy="288" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="473" cy="379" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="540" cy="20" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="607" cy="111" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="674" cy="202" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="741" cy="293" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="8" cy="384" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="75" cy="25" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="142" cy="116" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="209" cy="207" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="276" cy="298" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="343" cy="389" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="410" cy="30" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="477" cy="121" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="544" cy="212" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="611" cy="303" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="678" cy="394" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="745" cy="35" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="12" cy="126" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="79" cy="217" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="146" cy="308" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="213" cy="399" r="2" fill="#fff" opacity="0.7"/>
+  <text x="40" y="60" fill="#e8f7ff" font-family="Arial,sans-serif" font-size="28" font-weight="700">Galaxy Defender</text>
+  <text x="40" y="95" fill="hsl(220, 80%, 70%)" font-family="Arial,sans-serif" font-size="18">Chapter 2</text>
+  <rect x="40" y="400" width="200" height="6" rx="3" fill="hsl(220, 90%, 55%)"/>
+</svg>

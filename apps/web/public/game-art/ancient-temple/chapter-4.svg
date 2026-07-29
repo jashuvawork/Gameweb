@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="hsl(40, 55%, 12%)"/>
+      <stop offset="100%" stop-color="hsl(200, 60%, 18%)"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <circle cx="148" cy="284" r="20" fill="hsl(40, 70%, 45%)" opacity="0.35"/>
+  <circle cx="245" cy="337" r="33" fill="hsl(48, 70%, 45%)" opacity="0.36"/>
+  <circle cx="342" cy="390" r="46" fill="hsl(56, 70%, 45%)" opacity="0.37"/>
+  <circle cx="439" cy="443" r="59" fill="hsl(64, 70%, 45%)" opacity="0.38"/>
+  <circle cx="536" cy="46" r="72" fill="hsl(72, 70%, 45%)" opacity="0.39"/>
+  <circle cx="633" cy="99" r="25" fill="hsl(80, 70%, 45%)" opacity="0.35"/>
+  <circle cx="730" cy="152" r="38" fill="hsl(88, 70%, 45%)" opacity="0.36"/>
+  <circle cx="27" cy="205" r="51" fill="hsl(96, 70%, 45%)" opacity="0.37"/>
+  <circle cx="124" cy="258" r="64" fill="hsl(104, 70%, 45%)" opacity="0.38"/>
+  <circle cx="221" cy="311" r="77" fill="hsl(112, 70%, 45%)" opacity="0.39"/>
+  <circle cx="318" cy="364" r="30" fill="hsl(120, 70%, 45%)" opacity="0.35"/>
+  <circle cx="415" cy="417" r="43" fill="hsl(128, 70%, 45%)" opacity="0.36"/>
+  <polygon points="400,80 520,260 280,260" fill="hsl(40, 50%, 35%)" opacity="0.9"/>
+  <rect x="320" y="260" width="160" height="120" fill="hsl(40, 40%, 28%)"/>
+  <text x="40" y="60" fill="#e8f7ff" font-family="Arial,sans-serif" font-size="28" font-weight="700">Ancient Temple</text>
+  <text x="40" y="95" fill="hsl(200, 80%, 70%)" font-family="Arial,sans-serif" font-size="18">Chapter 4</text>
+  <rect x="40" y="400" width="200" height="6" rx="3" fill="hsl(200, 90%, 55%)"/>
+</svg>

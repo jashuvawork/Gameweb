@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import type { Game } from '@/lib/api';
+import { getGameArt } from '@games/art/free-game-art';
 
 const gradients = [
   'from-cyan-500/40 to-fuchsia-600/20',
@@ -12,6 +13,7 @@ const gradients = [
 ];
 
 export function GameCard({ game, index = 0 }: { game: Game; index?: number }) {
+  const art = getGameArt(game.slug);
   return (
     <motion.article
       initial={{ opacity: 0, y: 16 }}
@@ -23,9 +25,14 @@ export function GameCard({ game, index = 0 }: { game: Game; index?: number }) {
       <Link href={`/play/${game.slug}`} className="block focus-visible:outline-none">
         <div
           className={`relative aspect-[16/10] overflow-hidden rounded-2xl bg-gradient-to-br ${gradients[index % gradients.length]} ring-1 ring-white/10 transition group-hover:ring-neon-cyan/50`}
+          style={art ? { boxShadow: `0 0 0 1px ${art.accent}33` } : undefined}
         >
-          <div className="absolute inset-0 bg-grid-neon bg-[size:24px_24px] opacity-40" />
-          <div className="absolute inset-0 flex items-end bg-gradient-to-t from-void-950/90 via-transparent to-transparent p-4">
+          {art ? (
+            <img src={art.cover} alt="" className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+          ) : (
+            <div className="absolute inset-0 bg-grid-neon bg-[size:24px_24px] opacity-40" />
+          )}
+          <div className="absolute inset-0 flex items-end bg-gradient-to-t from-void-950/90 via-void-950/20 to-transparent p-4">
             <div>
               <p className="font-display text-sm tracking-wide text-white">{game.title}</p>
               <p className="mt-1 line-clamp-2 text-xs text-white/60">{game.description}</p>

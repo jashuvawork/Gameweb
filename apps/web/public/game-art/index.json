@@ -1,0 +1,39 @@
+{
+  "games": [
+    "pixel-runner",
+    "galaxy-defender",
+    "brick-blast",
+    "snake-evolution",
+    "neon-drift",
+    "desert-rally",
+    "mountain-racer",
+    "street-sprint",
+    "ancient-temple",
+    "number-master",
+    "logic-blocks",
+    "memory-match",
+    "zombie-escape",
+    "shadow-ninja",
+    "alien-attack",
+    "robot-arena",
+    "jungle-explorer",
+    "treasure-hunter",
+    "lost-kingdom",
+    "crystal-quest"
+  ],
+  "chapters": 5,
+  "characters": [
+    "warrior",
+    "explorer",
+    "ninja",
+    "pilot"
+  ],
+  "ui": [
+    "hud",
+    "pause",
+    "chapter-select",
+    "victory",
+    "character-select"
+  ],
+  "total": 300
+}

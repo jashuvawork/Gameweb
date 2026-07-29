@@ -156,6 +156,7 @@ export const SUBSCRIPTION_PLANS = [
       'Daily missions, achievements, leaderboards',
       'Avatar + AI companion basics',
       'Seasonal events · optional rewarded ads',
+      'Chapter/pause ads (upgrade for ad-free)',
       'Cloud save · friends list',
     ],
   },
@@ -167,7 +168,7 @@ export const SUBSCRIPTION_PLANS = [
     features: [
       'Everything in Free',
       '200+ premium originals + Story Mode',
-      'No advertisements',
+      'No advertisements (no chapter/pause ads)',
       'Exclusive stories & Living World rewards',
       'Extra avatars, cosmetics, early access',
       'Premium-only events',

@@ -43,8 +43,8 @@ export default function FreeHubPage() {
       <p className="text-xs uppercase tracking-[0.35em] text-neon-cyan/80">Free Tier · Growth Engine</p>
       <h1 className="mt-3 font-display text-4xl text-white">20 polished free games</h1>
       <p className="mt-3 max-w-2xl text-white/60">
-        Complete experiences — not demos. Unlimited play, daily missions, achievements, leaderboards, avatar basics,
-        seasonal events, and optional rewarded ads. Premium is an upgrade you want, not a wall you hit.
+        Complete experiences — not demos. Each free game has its own interface, chapter art, and character models.
+        Free tier shows ads between chapters and on pause — <Link href="/store" className="text-neon-gold">Premium is ad-free</Link>.
       </p>
 
       <section className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
