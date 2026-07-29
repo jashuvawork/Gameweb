@@ -66,6 +66,10 @@ model User {
   level             Int              @default(1)
   coins             Int              @default(100)
   credits           Int              @default(0)
+  gems              Int              @default(0)
+  crystals          Int              @default(0)
+  relics            Int              @default(0)
+  heroCards         Int              @default(0)
   subscription      SubscriptionTier @default(FREE)
   subscriptionEnds  DateTime?
   googleId          String?          @unique

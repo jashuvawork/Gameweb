@@ -12,10 +12,13 @@
 
 ## Monetization
 
-- **Free:** 20 arcade classics.
-- **Premium:** Story Mode, 20 signature originals, ~160 expandable titles, Living World events.
+- **Free growth engine:** 20 polished complete games (Arcade / Racing / Puzzle / Action / Adventure).
+  Unlimited play, cloud save, daily missions, achievements, leaderboards, basic avatar, seasonal events, friends, optional rewarded ads.
+- **Premium:** Story Mode, signature originals, ~160 expandable titles, no ads, exclusive cosmetics, early access.
 - **Credits:** cosmetic economy only (skins, pets, mounts, trails, themes, music, emotes).
 - **Never** sell power advantages.
+
+Free players should think: “I’m already enjoying this — Premium looks worth it,” not “I’m locked out.”
 
 ## Signature systems
 

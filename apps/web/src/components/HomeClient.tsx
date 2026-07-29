@@ -27,7 +27,7 @@ const SIGNATURE_SLUGS = [
   'speed-legends',
   'pirate-seas',
   'robot-wars',
-  'ancient-temple',
+  'temple-of-legends',
   'battle-command',
   'sky-kingdom',
   'infinity-arena',
@@ -99,8 +99,8 @@ export function HomeClient({ initialGames }: { initialGames: Game[] }) {
             transition={{ delay: 0.2 }}
             className="mt-4 max-w-lg text-base text-white/60 md:text-lg"
           >
-            Free classics forever. Premium originals & Story Mode — fair challenge, Living World events, cosmetics only.
-            Never pay-to-win.
+            20 polished free games that feel complete — missions, seasons, leaderboards, and soft Premium conversion. Never
+            pay-to-win.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -109,16 +109,16 @@ export function HomeClient({ initialGames }: { initialGames: Game[] }) {
             className="mt-8 flex flex-wrap gap-3"
           >
             <Link
-              href="/store"
+              href="/free"
               className="rounded-full bg-neon-cyan px-6 py-3 text-sm font-semibold text-void-950 shadow-neon"
             >
-              Unlock Premium Worlds
+              Play Free Games
             </Link>
             <Link
-              href="/games?access=FREE"
+              href="/store"
               className="rounded-full border border-white/20 px-6 py-3 text-sm text-white/80 hover:border-neon-magenta/50 hover:text-neon-magenta"
             >
-              Play Free Classics
+              Explore Premium
             </Link>
           </motion.div>
         </div>
@@ -166,11 +166,11 @@ export function HomeClient({ initialGames }: { initialGames: Game[] }) {
         </section>
       )}
 
-      <GameRail title="Premium Signature Originals" subtitle="20 playable premium titles" games={originals.length ? originals : premium.slice(0, 20)} />
+      <GameRail title="Free Forever — Polished" subtitle="20 complete games · Arcade · Racing · Puzzle · Action · Adventure" games={free} />
+      <GameRail title="Premium Signature Originals" subtitle="Story Mode + 20 premium titles" games={originals.length ? originals : premium.slice(0, 20)} />
       <GameRail title="Featured Premium" subtitle="Handpicked signal worlds" games={featured.length ? featured : premium.slice(0, 5)} />
       <GameRail title="Endless Stories" subtitle="Chapters that never truly end" games={endless.length ? endless : premium.slice(0, 5)} />
       <GameRail title="Trending" subtitle="What players are diving into" games={trending.length ? trending : free.slice(0, 5)} />
-      <GameRail title="Free Forever Classics" subtitle="20 original arcade games — teach in 30 seconds" games={free} />
       <GameRail title="Recently Added" games={recent} />
 
       <section className="mx-auto max-w-7xl px-4 py-10 md:px-6">

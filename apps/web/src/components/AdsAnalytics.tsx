@@ -2,9 +2,11 @@
 
 import Script from 'next/script';
 import { useSelector } from 'react-redux';
+import { useMutation } from '@tanstack/react-query';
 import type { RootState } from '@/store';
+import { api } from '@/lib/api';
 
-/** Banner slot — never rendered during active gameplay routes by parent layout choices */
+/** Banner slot — never during active gameplay canvas */
 export function AdSenseBanner() {
   const user = useSelector((s: RootState) => s.auth.user);
   const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
@@ -32,6 +34,49 @@ export function AdSenseBanner() {
         data-full-width-responsive="true"
       />
     </div>
+  );
+}
+
+/** Optional rewarded ads — player stays in control */
+export function RewardedAdButton({
+  reward = 'double_coins',
+  label = 'Watch optional ad for bonus',
+}: {
+  reward?: 'double_coins' | 'extra_life' | 'chest' | 'spin';
+  label?: string;
+}) {
+  const token = useSelector((s: RootState) => s.auth.accessToken);
+  const user = useSelector((s: RootState) => s.auth.user);
+  const premium =
+    user?.subscription === 'PREMIUM_MONTHLY' ||
+    user?.subscription === 'PREMIUM_YEARLY' ||
+    user?.subscription === 'FAMILY';
+
+  const claim = useMutation({
+    mutationFn: () =>
+      api<{ reward: { note: string } }>('/free-tier/rewarded-ad', {
+        method: 'POST',
+        token,
+        body: JSON.stringify({ reward }),
+      }),
+    onSuccess: (res) => alert(res.reward?.note || 'Reward granted'),
+    onError: (e: Error) => alert(e.message),
+  });
+
+  if (premium || !token) return null;
+
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        if (confirm('Optional rewarded ad — continue for a coin/cosmetic bonus? You stay in control.')) {
+          claim.mutate();
+        }
+      }}
+      className="rounded-full border border-white/20 px-4 py-2 text-xs text-white/70 hover:border-neon-lime/40 hover:text-neon-lime"
+    >
+      {label}
+    </button>
   );
 }
 

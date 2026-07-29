@@ -18,6 +18,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
 import { HealthModule } from './health/health.module';
 import { SeedModule } from './seed/seed.module';
 import { LivingWorldModule } from './living-world/living-world.module';
+import { FreeTierModule } from './free-tier/free-tier.module';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { LivingWorldModule } from './living-world/living-world.module';
     HealthModule,
     SeedModule,
     LivingWorldModule,
+    FreeTierModule,
   ],
   providers: [
     {

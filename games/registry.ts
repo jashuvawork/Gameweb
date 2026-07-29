@@ -32,6 +32,7 @@ import {
 } from './originals/signature-games';
 import { createExpandableGame } from './originals/expandable-factory';
 import { buildExpandedCatalog } from './catalog/jgames-200';
+import { FREE_GAME_FACTORIES } from './free/polished-free-games';
 
 function hud(ctx: EngineContext, title: string) {
   drawScore(ctx);
@@ -1110,27 +1111,28 @@ export const memoryMatch: GameFactory = () => {
 };
 
 export const GAME_REGISTRY: Record<string, { title: string; create: GameFactory }> = {
-  'space-defender': { title: 'Space Defender', create: spaceDefender },
-  'pixel-runner': { title: 'Pixel Runner', create: pixelRunner },
-  'galaxy-assault': { title: 'Galaxy Assault', create: galaxyAssault },
-  'snake-evolution': { title: 'Snake Evolution', create: snakeEvolution },
-  'brick-destroyer': { title: 'Brick Destroyer', create: brickDestroyer },
-  'maze-escape': { title: 'Maze Escape', create: mazeEscape },
-  'tank-arena': { title: 'Tank Arena', create: tankArena },
-  'alien-blaster': { title: 'Alien Blaster', create: alienBlaster },
-  'sky-shooter': { title: 'Sky Shooter', create: skyShooter },
-  'fruit-slice': { title: 'Fruit Slice', create: fruitSlice },
-  'tower-defender': { title: 'Tower Defender', create: towerDefender },
-  'endless-racer': { title: 'Endless Racer', create: endlessRacer },
-  'zombie-survival': { title: 'Zombie Survival', create: zombieSurvival },
-  'word-puzzle': { title: 'Word Puzzle', create: wordPuzzle },
-  sudoku: { title: 'Sudoku', create: sudokuGame },
-  chess: { title: 'Chess', create: chessGame },
-  checkers: { title: 'Checkers', create: checkersGame },
-  'twenty-forty-eight': { title: '2048', create: twentyFortyEight },
-  'bubble-pop': { title: 'Bubble Pop', create: bubblePop },
-  'memory-match': { title: 'Memory Match', create: memoryMatch },
-  // JGames Signature Originals
+  // Polished Free Tier (growth engine) — explicit keys for discoverability
+  'pixel-runner': { title: 'Pixel Runner', create: FREE_GAME_FACTORIES['pixel-runner'].create },
+  'galaxy-defender': { title: 'Galaxy Defender', create: FREE_GAME_FACTORIES['galaxy-defender'].create },
+  'brick-blast': { title: 'Brick Blast', create: FREE_GAME_FACTORIES['brick-blast'].create },
+  'snake-evolution': { title: 'Snake Evolution', create: FREE_GAME_FACTORIES['snake-evolution'].create },
+  'neon-drift': { title: 'Neon Drift', create: FREE_GAME_FACTORIES['neon-drift'].create },
+  'desert-rally': { title: 'Desert Rally', create: FREE_GAME_FACTORIES['desert-rally'].create },
+  'mountain-racer': { title: 'Mountain Racer', create: FREE_GAME_FACTORIES['mountain-racer'].create },
+  'street-sprint': { title: 'Street Sprint', create: FREE_GAME_FACTORIES['street-sprint'].create },
+  'ancient-temple': { title: 'Ancient Temple', create: FREE_GAME_FACTORIES['ancient-temple'].create },
+  'number-master': { title: 'Number Master', create: FREE_GAME_FACTORIES['number-master'].create },
+  'logic-blocks': { title: 'Logic Blocks', create: FREE_GAME_FACTORIES['logic-blocks'].create },
+  'memory-match': { title: 'Memory Match', create: FREE_GAME_FACTORIES['memory-match'].create },
+  'zombie-escape': { title: 'Zombie Escape', create: FREE_GAME_FACTORIES['zombie-escape'].create },
+  'shadow-ninja': { title: 'Shadow Ninja', create: FREE_GAME_FACTORIES['shadow-ninja'].create },
+  'alien-attack': { title: 'Alien Attack', create: FREE_GAME_FACTORIES['alien-attack'].create },
+  'robot-arena': { title: 'Robot Arena', create: FREE_GAME_FACTORIES['robot-arena'].create },
+  'jungle-explorer': { title: 'Jungle Explorer', create: FREE_GAME_FACTORIES['jungle-explorer'].create },
+  'treasure-hunter': { title: 'Treasure Hunter', create: FREE_GAME_FACTORIES['treasure-hunter'].create },
+  'lost-kingdom': { title: 'Lost Kingdom', create: FREE_GAME_FACTORIES['lost-kingdom'].create },
+  'crystal-quest': { title: 'Crystal Quest', create: FREE_GAME_FACTORIES['crystal-quest'].create },
+  // JGames Premium Signature Originals
   'rise-of-the-forgotten-king': { title: 'Rise of the Forgotten King', create: riseOfTheForgottenKing },
   'neon-velocity': { title: 'Neon Velocity', create: neonVelocity },
   'shadow-assassin': { title: 'Shadow Assassin', create: shadowAssassin },
@@ -1147,7 +1149,7 @@ export const GAME_REGISTRY: Record<string, { title: string; create: GameFactory 
   'speed-legends': { title: 'Speed Legends', create: speedLegends },
   'pirate-seas': { title: 'Pirate Seas', create: pirateSeas },
   'robot-wars': { title: 'Robot Wars', create: robotWars },
-  'ancient-temple': { title: 'Ancient Temple', create: ancientTemple },
+  'temple-of-legends': { title: 'Temple of Legends', create: ancientTemple },
   'battle-command': { title: 'Battle Command', create: battleCommand },
   'sky-kingdom': { title: 'Sky Kingdom', create: skyKingdom },
   'infinity-arena': { title: 'Infinity Arena', create: infinityArena },

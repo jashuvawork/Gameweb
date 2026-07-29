@@ -33,6 +33,9 @@ export function SiteHeader() {
           <Link href="/games" className="hover:text-neon-cyan">
             Games
           </Link>
+          <Link href="/free" className="hover:text-neon-cyan">
+            Free
+          </Link>
           <Link href="/living-world" className="hover:text-neon-cyan">
             Living World
           </Link>

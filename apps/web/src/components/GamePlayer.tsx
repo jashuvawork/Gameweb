@@ -8,6 +8,7 @@ import { createEngine } from '../../../../games/engine/core';
 import { GAME_REGISTRY } from '../../../../games/registry';
 import { FREE_GAME_CATALOG } from '@/lib/catalog';
 import { api } from '@/lib/api';
+import { RewardedAdButton } from '@/components/AdsAnalytics';
 import type { RootState } from '@/store';
 
 export function GamePlayer({ slug }: { slug: string }) {
@@ -112,9 +113,17 @@ export function GamePlayer({ slug }: { slug: string }) {
       <p className="mt-4 text-sm text-white/45">
         Easy to start · Difficult to master · Always rewarding · 70% skill / 20% exploration / 10% surprise
       </p>
+      {!isPremiumGame && ended && (
+        <div className="mt-3">
+          <RewardedAdButton reward="double_coins" label="Optional ad → double coins bonus" />
+        </div>
+      )}
       <div className="mt-4 flex gap-3">
         <Link href="/games" className="text-sm text-neon-cyan hover:underline">
           Library
+        </Link>
+        <Link href="/free" className="text-sm text-white/50 hover:text-white">
+          Free Hub
         </Link>
         <Link href="/living-world" className="text-sm text-white/50 hover:text-white">
           Living World
